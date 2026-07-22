@@ -48,10 +48,13 @@ describe('built public site contract', () => {
     expect(worker).toContain("'strict-dynamic'");
     expect(worker).toContain("frame-ancestors 'none'");
     expect(worker).toContain("element.setAttribute('nonce', nonce)");
-    for (const file of ['404.html', 'ads.txt', 'og.png', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'site.webmanifest', '.well-known/security.txt']) expect(existsSync(join(dist, file)), file).toBe(true);
+    for (const file of ['404.html', 'ads.txt', 'og.png', 'favicon.ico', 'favicon.svg', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'site.webmanifest', '.well-known/security.txt']) expect(existsSync(join(dist, file)), file).toBe(true);
     expect(readFileSync(join(dist, 'ads.txt'), 'utf8').trim()).toBe('google.com, pub-7469113252837951, DIRECT, f08c47fec0942fa0');
     const homepage = readFileSync(join(dist, 'index.html'), 'utf8');
     expect(homepage).toContain('<meta name="google-adsense-account" content="ca-pub-7469113252837951">');
+    expect(homepage).toContain('<link rel="icon" href="/favicon.ico" sizes="any">');
+    expect(homepage).toContain('<link rel="icon" href="/favicon.svg" type="image/svg+xml">');
+    expect(homepage).toContain('<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">');
     expect(homepage).toContain('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7469113252837951');
     expect(homepage).toContain('crossorigin="anonymous"');
   });
