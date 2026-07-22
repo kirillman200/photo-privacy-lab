@@ -1,0 +1,105 @@
+---
+import { navigation, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOURCE_URL } from '../data/site';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  type?: 'website' | 'article';
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const { title, description, path, type = 'website', schema } = Astro.props;
+const canonical = new URL(path, SITE_URL).href;
+const fullTitle = title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
+const socialImage = new URL('/og.png', SITE_URL).href;
+const siteSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+    publisher: { '@id': `${SITE_URL}/#organization` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${SITE_URL}/#organization`,
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: new URL('/icon-512.png', SITE_URL).href,
+    sameAs: [SOURCE_URL],
+  },
+];
+const pageSchema = schema ? [...siteSchema, ...(Array.isArray(schema) ? schema : [schema])] : siteSchema;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1720" />
+    <meta name="color-scheme" content="light" />
+    <meta name="google-adsense-account" content="ca-pub-7469113252837951" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site index" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Photo Privacy Lab privacy scan, clean, redact, and verify workflow" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(pageSchema)}></script>
+    <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7469113252837951" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="Photo Privacy Lab home">
+          <span class="brand-mark" aria-hidden="true"><i></i></span>
+          <span><strong>Photo Privacy</strong><small>LAB</small></span>
+        </a>
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+        <details class="mobile-nav">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile navigation">
+            {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main-content"><slot /></main>
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div>
+          <a class="brand footer-brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i></span><span><strong>Photo Privacy</strong><small>LAB</small></span></a>
+          <p>Check hidden risks, clean the file, redact visible information, and verify the exact copy you will share.</p>
+          <div class="footer-local"><span></span> Selected image files stay in your browser</div>
+        </div>
+        <div><h2>Tools</h2>{navigation.slice(0, 3).map((item) => <a href={item.href}>{item.label}</a>)}<a href="/batch-metadata-remover/">Batch cleaner</a><a href="/verify-clean-photo/">Verify a clean copy</a></div>
+        <div><h2>Learn</h2><a href="/guides/">All guides</a><a href="/methodology/">Methodology</a><a href="/supported-formats/">Supported formats</a><a href="/limitations/">Limitations</a></div>
+        <div><h2>Trust</h2><a href="/privacy/">Privacy</a><a href="/security/">Security</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a><a href={SOURCE_URL} rel="external noopener">Source code</a></div>
+      </div>
+      <div class="footer-bottom"><span>© {new Date().getFullYear()} Photo Privacy Lab</span><span>No account · No upload endpoint · Static browser application</span></div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PrivacyWorkbench from '../components/PrivacyWorkbench.vue';
+import { SITE_NAME, SITE_URL, tools, trustPages } from '../data/site';
+import type { ToolPage, TrustPage } from '../data/site';
+
+export function getStaticPaths() {
+  return [
+    ...tools.map((page) => ({ params: { slug: page.slug }, props: { kind: 'tool', page } })),
+    ...trustPages.map((page) => ({ params: { slug: page.slug }, props: { kind: 'trust', page } })),
+  ];
+}
+
+type Props = { kind: 'tool'; page: ToolPage } | { kind: 'trust'; page: TrustPage };
+const props = Astro.props as Props;
+const page = props.page;
+const tool = props.kind === 'tool' ? props.page : null;
+const trust = props.kind === 'trust' ? props.page : null;
+const path = `/${page.slug}/`;
+const schema = tool
+  ? [
+      { '@context': 'https://schema.org', '@type': 'WebApplication', name: page.title, url: new URL(path, SITE_URL).href, description: page.description, applicationCategory: 'SecurityApplication', operatingSystem: 'Any modern browser', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' } },
+      { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: SITE_NAME, item: SITE_URL }, { '@type': 'ListItem', position: 2, name: page.title, item: new URL(path, SITE_URL).href }] },
+      { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: tool.faq.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) },
+    ]
+  : { '@context': 'https://schema.org', '@type': 'WebPage', name: page.title, url: new URL(path, SITE_URL).href, description: page.description };
+---
+<BaseLayout title={page.title} description={page.description} path={path} schema={schema}>
+  {tool ? (
+    <>
+      <section class="page-hero tool-hero"><div class="section-shell"><p class="kicker mint">{tool.eyebrow}</p><h1>{tool.title}</h1><p>{tool.intro}</p><ul>{tool.outcomes.map((outcome) => <li>✓ {outcome}</li>)}</ul></div></section>
+      <div class="section-shell tool-workspace"><PrivacyWorkbench client:load initialMode={tool.mode} /></div>
+      <section class="how-section section-shell"><div class="section-intro"><p class="kicker">How this workflow works</p><h2>From selected file to checked copy</h2></div><ol>{tool.steps.map((step, index) => <li><span>0{index + 1}</span><div><h3>{step.title}</h3><p>{step.body}</p></div></li>)}</ol></section>
+      <section class="tool-detail section-shell"><div><p class="kicker">Exact local boundary</p><h2>The image stays out of the request path</h2><p>The browser reads files only after you choose, drop, or paste them. Parsing, cleaning, redaction, output verification, ZIP creation, and downloads all happen on this device.</p><a class="text-link" href="/methodology/">Read the technical methodology <span>→</span></a></div><aside><h3>Version 1 limits</h3><p>JPEG, PNG, and static WebP only. One file is limited to 100 MB. Automated results cover supported hidden metadata, not visible context.</p><a href="/supported-formats/">See format details →</a></aside></section>
+      <section class="faq-section section-shell"><div><p class="kicker">Questions about {tool.shortTitle.toLowerCase()}</p><h2>Know what the result means</h2></div><div class="faq-list">{tool.faq.map((item, index) => <details open={index === 0}><summary>{item.q}</summary><p>{item.a}</p></details>)}</div></section>
+    </>
+  ) : (
+    <article class="content-page section-shell">
+      <header><p class="kicker">Photo Privacy Lab</p><h1>{trust!.title}</h1><p>{trust!.intro}</p></header>
+      <div class="content-layout"><nav class="on-this-page" aria-label="On this page"><strong>On this page</strong>{trust!.sections.map((section) => <a href={`#${section.heading.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{section.heading}</a>)}</nav><div class="prose">{trust!.sections.map((section) => <section id={section.heading.toLowerCase().replace(/[^a-z0-9]+/g, '-')}><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}{section.items && <ul>{section.items.map((item) => <li>{item}</li>)}</ul>}</section>)}</div></div>
+    </article>
+  )}
+</BaseLayout>

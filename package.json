@@ -1,0 +1,48 @@
+{
+  "name": "photo-privacy-lab",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser-local photo metadata scanning, cleaning, redaction, and clean-copy verification.",
+  "homepage": "https://exif.utilitas.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kirillman200/photo-privacy-lab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kirillman200/photo-privacy-lab/issues"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check && tsc --noEmit",
+    "test": "npm run test:unit",
+    "test:unit": "vitest run tests/metadata.test.ts tests/cleaning.test.ts",
+    "test:site": "vitest run tests/site-contract.test.ts",
+    "test:e2e": "node tests/run-e2e.mjs",
+    "validate": "npm run check && npm run test:unit && npm run build && npm run test:site",
+    "deploy:dry": "npm run validate && wrangler deploy --dry-run",
+    "deploy": "npm run validate && wrangler deploy"
+  },
+  "dependencies": {
+    "@astrojs/vue": "^7.0.1",
+    "astro": "^7.1.3",
+    "jszip": "^3.10.1",
+    "vue": "^3.5.40"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.112.0"
+  },
+  "overrides": {
+    "sharp": "0.35.3"
+  }
+}

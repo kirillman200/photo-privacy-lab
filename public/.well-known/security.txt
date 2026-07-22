@@ -1,0 +1,5 @@
+Contact: https://github.com/kirillman200/photo-privacy-lab/security/advisories/new
+Expires: 2027-07-22T23:59:59Z
+Preferred-Languages: en
+Canonical: https://exif.utilitas.app/.well-known/security.txt
+Policy: https://exif.utilitas.app/security/

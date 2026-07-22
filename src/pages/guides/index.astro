@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { guides, SITE_URL } from '../../data/site';
+const description = 'Original guides to photo metadata, GPS location, EXIF orientation, embedded previews, safe screenshot redaction, and sharing checklists.';
+const schema = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Photo privacy guides', url: new URL('/guides/', SITE_URL).href, description };
+---
+<BaseLayout title="Photo privacy guides" description={description} path="/guides/" schema={schema}>
+  <section class="page-hero guides-hero"><div class="section-shell"><p class="kicker mint">Practical, threat-aware education</p><h1>Photo privacy guides</h1><p>Understand what an image can reveal, choose the right cleaning or redaction method, and build a safer sharing routine.</p></div></section>
+  <div class="guide-index section-shell">
+    <div class="featured-guide"><div><p class="kicker">Start here · {guides[0].readTime}</p><h2><a href={`/guides/${guides[0].slug}/`}>{guides[0].title}</a></h2><p>{guides[0].description}</p><a class="primary-button" href={`/guides/${guides[0].slug}/`}>Read the guide</a></div><div class="metadata-art"><span>GPS</span><span>EXIF</span><span>XMP</span><i></i></div></div>
+    <div class="guide-list">{guides.slice(1).map((guide, index) => <article><span class="guide-number">{String(index + 2).padStart(2, '0')}</span><div><p class="kicker">{guide.audience} · {guide.readTime}</p><h2><a href={`/guides/${guide.slug}/`}>{guide.title}</a></h2><p>{guide.description}</p><a class="text-link" href={`/guides/${guide.slug}/`}>Read guide <span>→</span></a></div></article>)}</div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PrivacyWorkbench from '../components/PrivacyWorkbench.vue';
+import { guides, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../data/site';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+    applicationCategory: 'SecurityApplication',
+    operatingSystem: 'Any modern browser',
+    browserRequirements: 'JavaScript and File API support',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    featureList: ['Local metadata scanning', 'JPEG, PNG, and WebP cleaning', 'Visual redaction', 'Clean-copy verification', 'Batch ZIP export'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'Are selected photos uploaded?', acceptedAnswer: { '@type': 'Answer', text: 'No. Selected image bytes and extracted metadata are processed locally in the browser.' } },
+      { '@type': 'Question', name: 'Can the tool remove visible information?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. The redaction tool can flatten solid masks, crop, blur, and pixelation into a fresh PNG. Solid masks are recommended for secrets.' } },
+      { '@type': 'Question', name: 'Which formats are supported?', acceptedAnswer: { '@type': 'Answer', text: 'Version 1 supports JPEG, PNG, and static WebP, with the deepest metadata support for JPEG.' } },
+    ],
+  },
+];
+---
+<BaseLayout title={SITE_NAME} description={SITE_DESCRIPTION} path="/" schema={schema}>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="kicker mint">Browser-local photo safety</p>
+        <h1>Check photos before<br />you <em>share them.</em></h1>
+        <p class="hero-lede">Find GPS coordinates, timestamps, device details, and hidden previews. Remove private metadata and permanently cover visible information directly in your browser.</p>
+        <div class="hero-actions"><a class="primary-button large" href="#photo-workspace">Check a photo</a><a class="text-link" href="/methodology/">See exactly how it works <span>→</span></a></div>
+        <ul class="promise-list"><li>Image files are processed locally</li><li>Extracted metadata is never transmitted</li><li>No account or installation required</li></ul>
+      </div>
+      <div class="hero-report" aria-label="Example privacy scan report">
+        <div class="report-top"><span class="window-dots"><i></i><i></i><i></i></span><small>LOCAL SCAN</small><span class="shield-mini">✓</span></div>
+        <div class="photo-placeholder"><div class="photo-sun"></div><div class="photo-hills"></div><span>IMG_4821.JPG</span></div>
+        <div class="example-result"><div><span class="score">3</span><p><strong>items need attention</strong><small>Privacy scan complete</small></p></div><span class="local-chip">On this device</span></div>
+        <div class="example-findings"><p><i class="risk-dot critical"></i><span><strong>GPS location</strong><small>Precise coordinates found</small></span><b>CRITICAL</b></p><p><i class="risk-dot personal"></i><span><strong>Device model</strong><small>Camera information present</small></span><b>PERSONAL</b></p><p><i class="risk-dot contextual"></i><span><strong>Capture time</strong><small>Date and time present</small></span><b>CONTEXT</b></p></div>
+        <div class="report-verified"><span>✓</span><p><strong>Clean-copy verification</strong><small>Scan the exported bytes again</small></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip" aria-label="Local processing promises"><div><span class="trust-icon">⌁</span><p><strong>Local processing</strong><small>Files remain in this tab</small></p></div><div><span class="trust-icon">◎</span><p><strong>No image storage</strong><small>No server receives the file</small></p></div><div><span class="trust-icon">✓</span><p><strong>Verified output</strong><small>Generated copies are rescanned</small></p><a href="/privacy/">Read the privacy boundary →</a></div></section>
+
+  <div id="photo-workspace" class="section-shell workbench-shell">
+    <div class="section-intro centered"><p class="kicker">The complete workflow</p><h2>Scan. Understand. Clean. Verify.</h2><p>Start with the image you want to share. The workspace keeps the file local from selection through download.</p></div>
+    <PrivacyWorkbench client:load initialMode="scan" />
+  </div>
+
+  <section class="workflow-section">
+    <div class="section-shell">
+      <div class="section-intro"><p class="kicker">Why this is different</p><h2>Privacy is more than deleting EXIF</h2><p>A safer result comes from combining hidden-data inspection, context, visible redaction, and a second scan of the actual exported file.</p></div>
+      <ol class="workflow-steps">
+        <li><span>01</span><div class="step-art scan-art"><i></i><i></i><i></i></div><h3>Inspect hidden risks</h3><p>Read supported EXIF, GPS, XMP, IPTC, comment, color, orientation, and preview structures.</p><a href="/photo-privacy-check/">Run a privacy check →</a></li>
+        <li><span>02</span><div class="step-art clean-art"><i></i><i></i></div><h3>Choose the right clean</h3><p>Preserve JPEG compressed image data or render a fresh flattened copy with clearly stated tradeoffs.</p><a href="/remove-photo-metadata/">Compare cleaning modes →</a></li>
+        <li><span>03</span><div class="step-art redact-art"><i></i></div><h3>Cover visible details</h3><p>Flatten solid masks for secrets. Use blur and pixelation only as clearly labeled visual effects.</p><a href="/screenshot-redactor/">Open the redactor →</a></li>
+        <li><span>04</span><div class="step-art verify-art">✓</div><h3>Verify the exact copy</h3><p>Rescan the generated bytes and download a report that does not repeat private source values.</p><a href="/verify-clean-photo/">Verify a clean photo →</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="audience-section">
+    <div class="section-shell split-heading"><div><p class="kicker">Built for real sharing moments</p><h2>One photo can carry<br />different risks.</h2></div><p>The right decision depends on who will see the image and what other clues they can combine with it.</p></div>
+    <div class="audience-grid section-shell">
+      <article><span>⌂</span><h3>Parents and teachers</h3><p>Review school names, routines, documents, faces, and precise home locations.</p><a href="/guides/photo-sharing-checklist-for-parents/">Parent checklist →</a></article>
+      <article><span>▣</span><h3>Marketplace sellers</h3><p>Hide shipping labels, room details, serial numbers, and pickup locations.</p><a href="/guides/marketplace-photo-safety/">Seller checklist →</a></article>
+      <article><span>◉</span><h3>Journalists and activists</h3><p>Separate originals from publication copies and use a threat-aware review.</p><a href="/guides/photo-safety-for-journalists/">High-risk workflow →</a></article>
+      <article><span>⌘</span><h3>Support and remote work</h3><p>Remove names, tokens, tabs, notifications, IDs, and client information from screenshots.</p><a href="/guides/redact-a-screenshot-safely/">Screenshot guide →</a></article>
+    </div>
+  </section>
+
+  <section class="guides-preview section-shell">
+    <div class="split-heading"><div><p class="kicker">Learn the hidden layer</p><h2>Practical photo privacy guides</h2></div><a class="secondary-button" href="/guides/">Browse all guides</a></div>
+    <div class="guide-card-grid">{guides.slice(0, 3).map((guide, index) => <article class={`guide-card guide-${index + 1}`}><div class="guide-visual"><span>{index === 0 ? 'EXIF' : index === 1 ? 'GPS' : 'SOLID'}</span></div><p class="kicker">{guide.readTime} read</p><h3><a href={`/guides/${guide.slug}/`}>{guide.title}</a></h3><p>{guide.description}</p><a class="text-link" href={`/guides/${guide.slug}/`}>Read guide <span>→</span></a></article>)}</div>
+  </section>
+
+  <section class="exact-promise"><div class="section-shell"><div><p class="kicker mint">An exact privacy promise</p><h2>Your photo is not the product.</h2><p>Selected files, image previews, filenames, and extracted metadata stay in the browser. Ordinary website delivery and advertising requests are separate and documented.</p></div><ul><li><span>✓</span> No image upload endpoint</li><li><span>✓</span> No image server storage</li><li><span>✓</span> No account required</li><li><span>✓</span> No selected-photo data sent to advertising</li></ul><a class="secondary-button light" href="/privacy/">Read the privacy policy</a></div></section>
+
+  <section class="faq-section section-shell"><div><p class="kicker">Common questions</p><h2>Clear answers before you choose a file</h2></div><div class="faq-list"><details open><summary>Are my photos uploaded?</summary><p>No. Image bytes and extracted metadata stay in this browser tab. The site contains no file-upload endpoint.</p></details><details><summary>Does cleaning change image quality?</summary><p>Privacy Clean preserves JPEG compressed image data. Full Flatten and redaction create newly encoded pixels and may change compression or file size.</p></details><details><summary>Does a clean report guarantee anonymity?</summary><p>No. It reports supported hidden-data categories. Visible faces, text, landmarks, reflections, and context still require human review.</p></details><details><summary>Why preserve orientation?</summary><p>Some phones store sideways pixels and rely on an EXIF instruction. Lossless cleaning keeps only a minimal orientation tag when needed.</p></details></div></section>
+
+  <section class="final-cta"><div><p class="kicker mint">Ready when you are</p><h2>Check the photo before the photo leaves your hands.</h2><a class="primary-button large" href="#photo-workspace">Open the private workspace</a><small>Free · No signup · Runs in your browser</small></div></section>
+</BaseLayout>
