@@ -15,7 +15,7 @@ No environment variables, runtime secrets, database credentials, or browser-expo
 - Fresh flattened exports and a manual redaction canvas
 - Independent output rescanning with safe text and JSON reports
 - Sequential background-worker batch cleaning with ZIP export
-- Exact 100 MB per-file limit, with 20 files and 250 MB combined per batch
+- Exact 10 MB per-file limit, with 20 files and 100 MB combined per batch
 - Six materially distinct tool routes, twelve guides, and trust pages
 
 ## Local development

@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import JSZip from 'jszip';
 import { computed, onBeforeUnmount, ref } from 'vue';
-import { MAX_FILE_BYTES, MAX_FILE_MEGABYTES } from '../lib/metadata';
+import {
+  MAX_BATCH_BYTES,
+  MAX_BATCH_MEGABYTES,
+  MAX_FILE_BYTES,
+  MAX_FILE_MEGABYTES,
+} from '../lib/metadata';
 
 interface BatchItem {
   id: string;
@@ -13,7 +18,6 @@ interface BatchItem {
 }
 
 const MAX_FILES = 20;
-const MAX_TOTAL = 250 * 1024 * 1024;
 const items = ref<BatchItem[]>([]);
 const running = ref(false);
 const cancelled = ref(false);
@@ -43,8 +47,8 @@ const selectFiles = (list: FileList | File[]) => {
     return;
   }
   const total = files.reduce((sum, file) => sum + file.size, 0);
-  if (total > MAX_TOTAL) {
-    error.value = 'This batch exceeds the 250 MB total safety limit.';
+  if (total > MAX_BATCH_BYTES) {
+    error.value = `This batch exceeds the ${MAX_BATCH_MEGABYTES} MB total safety limit.`;
     return;
   }
   items.value = files.map((file, index) => ({ id: `${Date.now()}-${index}`, file, state: 'queued', message: 'Ready' }));
@@ -138,7 +142,7 @@ onBeforeUnmount(() => {
       <input type="file" multiple accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" @change="selectFiles(($event.target as HTMLInputElement).files || [])" />
       <span class="drop-zone__icon" aria-hidden="true">+</span>
       <strong>Choose up to 20 photos</strong>
-      <small>{{ MAX_FILE_MEGABYTES }} MB per file · 250 MB combined maximum</small>
+      <small>{{ MAX_FILE_MEGABYTES }} MB per file · {{ MAX_BATCH_MEGABYTES }} MB combined maximum</small>
     </label>
     <p v-if="error" class="error-message" role="alert">{{ error }}</p>
     <div v-if="items.length" class="batch-list">

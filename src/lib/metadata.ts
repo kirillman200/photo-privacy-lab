@@ -1,8 +1,10 @@
 import { ascii, readU16, readU32 } from './binary';
 import type { Finding, ImageFormat, RiskLevel, ScanResult, VerificationReport } from './types';
 
-export const MAX_FILE_MEGABYTES = 100;
+export const MAX_FILE_MEGABYTES = 10;
 export const MAX_FILE_BYTES = MAX_FILE_MEGABYTES * 1_000_000;
+export const MAX_BATCH_MEGABYTES = 100;
+export const MAX_BATCH_BYTES = MAX_BATCH_MEGABYTES * 1_000_000;
 export const assertFileSize = (size: number): void => {
   if (!Number.isSafeInteger(size) || size < 0 || size > MAX_FILE_BYTES) {
     throw new Error(`This file exceeds the ${MAX_FILE_MEGABYTES} MB per-file safety limit.`);

@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { assertFileSize, MAX_FILE_BYTES, scanBytes } from '../src/lib/metadata';
+import {
+  assertFileSize,
+  MAX_BATCH_BYTES,
+  MAX_BATCH_MEGABYTES,
+  MAX_FILE_BYTES,
+  scanBytes,
+} from '../src/lib/metadata';
 import { privateJpeg, privatePng, privateWebp } from './fixtures';
 
 describe('metadata scanning', () => {
@@ -30,10 +36,12 @@ describe('metadata scanning', () => {
     expect(result.orientation).toBe(6);
   });
 
-  it('enforces an exact 100 MB per-file ceiling', () => {
-    expect(MAX_FILE_BYTES).toBe(100_000_000);
+  it('enforces an exact 10 MB per-file ceiling and 100 MB batch ceiling', () => {
+    expect(MAX_FILE_BYTES).toBe(10_000_000);
     expect(() => assertFileSize(MAX_FILE_BYTES)).not.toThrow();
-    expect(() => assertFileSize(MAX_FILE_BYTES + 1)).toThrow(/100 MB/);
+    expect(() => assertFileSize(MAX_FILE_BYTES + 1)).toThrow(/10 MB/);
+    expect(MAX_BATCH_MEGABYTES).toBe(100);
+    expect(MAX_BATCH_BYTES).toBe(100_000_000);
   });
 
   it('rejects unsupported signatures', () => {

@@ -22,10 +22,18 @@ function contentSecurityPolicy(nonce) {
   ].join('; ');
 }
 
+const SECURITY_TXT_PATH = '/.well-known/security.txt';
+
 export default {
   async fetch(request, env) {
     const response = await env.ASSETS.fetch(request);
     const contentType = response.headers.get('content-type') || '';
+
+    if (new URL(request.url).pathname === SECURITY_TXT_PATH) {
+      const securityTxtResponse = new Response(response.body, response);
+      securityTxtResponse.headers.set('Content-Type', 'text/plain; charset=utf-8');
+      return securityTxtResponse;
+    }
 
     if (!contentType.includes('text/html')) return response;
 

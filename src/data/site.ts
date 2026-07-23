@@ -85,15 +85,15 @@ export const tools: ToolPage[] = [
     eyebrow: 'Clean a set consistently',
     mode: 'batch',
     intro: 'Apply one documented cleaning policy to multiple JPEG, PNG, and WebP files. Processing is sequential and bounded to reduce memory pressure.',
-    outcomes: ['Up to 20 files per batch', '100 MB per file and 250 MB total', 'Background worker processing', 'ZIP export plus per-file status'],
+    outcomes: ['Up to 20 files per batch', '10 MB per file and 100 MB total', 'Background worker processing', 'ZIP export plus per-file status'],
     steps: [
-      { title: 'Choose a bounded batch', body: 'Select up to 20 supported images, no larger than 100 MB each, with a combined size no larger than 250 MB.' },
+      { title: 'Choose a bounded batch', body: 'Select up to 20 supported images, no larger than 10 MB each, with a combined size no larger than 100 MB.' },
       { title: 'Process off the main thread', body: 'A browser Web Worker scans and cleans one file at a time.' },
       { title: 'Review and download', body: 'Failed files stay clearly identified. Successful verified copies are packaged in a ZIP.' },
     ],
     faq: [
       { q: 'Are batch files uploaded to a server?', a: 'No. The worker is a browser feature running on your device, not a Cloudflare Worker.' },
-      { q: 'Why is there a batch limit?', a: 'Browsers and mobile devices have finite memory. The 100 MB per-file and 250 MB combined limits make failures easier to explain and recover from.' },
+      { q: 'Why is there a batch limit?', a: 'Browsers and mobile devices have finite memory. The 10 MB per-file and 100 MB combined limits make failures easier to explain and recover from.' },
     ],
   },
   {

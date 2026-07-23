@@ -10,11 +10,13 @@ Do not attach a real private photograph, GPS coordinate, owner field, access tok
 
 Use [GitHub private vulnerability reporting](https://github.com/kirillman200/photo-privacy-lab/security/advisories/new) for sensitive reports. Do not publish exploit details in a public issue.
 
+Machine-readable reporting details are published at `https://exif.utilitas.app/.well-known/security.txt` in the RFC 9116 format.
+
 ## Security boundary
 
 The application is static and browser-local. Only `dist/` is deployable. There is no file-upload endpoint, image-processing server, account system, database, or secret required by the browser application.
 
-Imported files are untrusted. Parsers enforce signatures, an exact 100 MB per-file ceiling, segment or chunk boundaries, TIFF offset checks, and bounded counts. Unsafe and unsupported files fail without an output download.
+Imported files are untrusted. Parsers enforce signatures, an exact 10 MB per-file ceiling, segment or chunk boundaries, TIFF offset checks, and bounded counts. Unsafe and unsupported files fail without an output download.
 
 ## Launch checks
 

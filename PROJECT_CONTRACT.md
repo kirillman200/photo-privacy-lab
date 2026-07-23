@@ -25,7 +25,7 @@ The repository root, source, tests, local environment files, package caches, dep
 ## Untrusted inputs and limits
 
 - JPEG, PNG, and static WebP only, confirmed by file signatures.
-- 100 MB per file, 20 files per batch, and 250 MB total per batch.
+- 10 MB per file, 20 files per batch, and 100 MB total per batch.
 - JPEG segment lengths, PNG chunk lengths, WebP chunk lengths, TIFF offsets, entry counts, and value counts are bounded before reads.
 - Animated WebP is scanned but rejected for cleaning.
 
