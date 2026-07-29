@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "photo-privacy-review",
+      "type": "skill-md",
+      "description": "Use Photo Privacy Lab to inspect photo metadata, create cleaner copies, redact visible details, and verify outputs locally in the browser.",
+      "url": "https://exif.utilitas.app/.well-known/agent-skills/photo-privacy-review/SKILL.md",
+      "digest": "sha256:25fb4f1736c050e20887e8896f3e99f3e8d34cc656b6ace024c4f308885c8848"
+    }
+  ]
+}

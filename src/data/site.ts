@@ -1,5 +1,6 @@
 export const SITE_NAME = 'Photo Privacy Lab';
 export const SITE_URL = 'https://exif.utilitas.app';
+export const CONTACT_EMAIL = 'contact@exif.utilitas.app';
 export const SOURCE_URL = 'https://github.com/kirillman200/photo-privacy-lab';
 export const SITE_DESCRIPTION =
   'Inspect hidden photo metadata, remove private fields, redact visible information, and verify the clean copy in your browser.';
@@ -309,7 +310,7 @@ export interface TrustPage {
   title: string;
   description: string;
   intro: string;
-  sections: Array<{ heading: string; paragraphs: string[]; items?: string[] }>;
+  sections: Array<{ heading: string; paragraphs: string[]; items?: string[]; link?: { href: string; label: string } }>;
 }
 
 export const trustPages: TrustPage[] = [
@@ -366,8 +367,8 @@ export const trustPages: TrustPage[] = [
     slug: 'contact', title: 'Contact', description: 'How to send product feedback or report a privacy or security problem without attaching sensitive images.',
     intro: 'Do not send private photographs, extracted metadata, GPS coordinates, or other secrets in an initial report.',
     sections: [
-      { heading: 'Product feedback', paragraphs: ['Open an issue in the public source repository. Describe the browser, image format, approximate size, and steps without attaching a sensitive source image or private metadata.'] },
-      { heading: 'Security reports', paragraphs: ['For a suspected vulnerability, use the repository private vulnerability reporting form. Provide a minimal synthetic reproduction where possible and do not place exploit details or private images in a public issue.'] },
+      { heading: 'Product feedback', paragraphs: ['Describe the browser, image format, approximate size, and steps without attaching a sensitive source image or private metadata.'], link: { href: `mailto:${CONTACT_EMAIL}`, label: CONTACT_EMAIL } },
+      { heading: 'Security reports', paragraphs: ['For a suspected vulnerability, email the dedicated contact address or use the repository private vulnerability reporting form. Provide a minimal synthetic reproduction where possible and do not place exploit details or private images in a public issue.'], link: { href: `mailto:${CONTACT_EMAIL}`, label: CONTACT_EMAIL } },
     ],
   },
   {

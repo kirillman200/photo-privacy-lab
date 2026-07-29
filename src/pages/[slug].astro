@@ -37,7 +37,7 @@ const schema = tool
   ) : (
     <article class="content-page section-shell">
       <header><p class="kicker">Photo Privacy Lab</p><h1>{trust!.title}</h1><p>{trust!.intro}</p></header>
-      <div class="content-layout"><nav class="on-this-page" aria-label="On this page"><strong>On this page</strong>{trust!.sections.map((section) => <a href={`#${section.heading.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{section.heading}</a>)}</nav><div class="prose">{trust!.sections.map((section) => <section id={section.heading.toLowerCase().replace(/[^a-z0-9]+/g, '-')}><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}{section.items && <ul>{section.items.map((item) => <li>{item}</li>)}</ul>}</section>)}</div></div>
+      <div class="content-layout"><nav class="on-this-page" aria-label="On this page"><strong>On this page</strong>{trust!.sections.map((section) => <a href={`#${section.heading.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{section.heading}</a>)}</nav><div class="prose">{trust!.sections.map((section) => <section id={section.heading.toLowerCase().replace(/[^a-z0-9]+/g, '-')}><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}{section.items && <ul>{section.items.map((item) => <li>{item}</li>)}</ul>}{section.link && <p><a href={section.link.href}>{section.link.label}</a></p>}</section>)}</div></div>
     </article>
   )}
 </BaseLayout>

@@ -1,3 +1,11 @@
+import {
+  CONTENT_SIGNAL,
+  HOMEPAGE_DISCOVERY_LINKS,
+  acceptsMarkdown,
+  appendVary,
+  createMarkdownResponse,
+} from './agent-discovery.ts';
+
 function createNonce() {
   const bytes = crypto.getRandomValues(new Uint8Array(16));
   return btoa(String.fromCharCode(...bytes));
@@ -27,19 +35,41 @@ const SECURITY_TXT_PATH = '/.well-known/security.txt';
 export default {
   async fetch(request, env) {
     const response = await env.ASSETS.fetch(request);
-    const contentType = response.headers.get('content-type') || '';
-
-    if (new URL(request.url).pathname === SECURITY_TXT_PATH) {
-      const securityTxtResponse = new Response(response.body, response);
-      securityTxtResponse.headers.set('Content-Type', 'text/plain; charset=utf-8');
-      return securityTxtResponse;
+    const url = new URL(request.url);
+    const headers = new Headers(response.headers);
+    headers.set('Content-Signal', CONTENT_SIGNAL);
+    if (url.pathname === '/' || url.pathname === '/index.html') {
+      headers.set('Link', HOMEPAGE_DISCOVERY_LINKS);
     }
 
-    if (!contentType.includes('text/html')) return response;
+    if (url.pathname === SECURITY_TXT_PATH) {
+      headers.set('Content-Type', 'text/plain; charset=utf-8');
+    }
+    if (url.pathname.endsWith('.md')) {
+      headers.set('Content-Type', 'text/markdown; charset=utf-8');
+    }
+
+    const contentType = headers.get('Content-Type') || '';
+    if (!contentType.includes('text/html')) {
+      return new Response(request.method === 'HEAD' ? null : response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+      });
+    }
+
+    appendVary(headers, 'Accept');
+    if (acceptsMarkdown(request.headers.get('Accept') || '')) {
+      return createMarkdownResponse(response, headers, await response.text(), request.method);
+    }
 
     const nonce = createNonce();
-    const securedResponse = new Response(response.body, response);
-    securedResponse.headers.set('Content-Security-Policy', contentSecurityPolicy(nonce));
+    headers.set('Content-Security-Policy', contentSecurityPolicy(nonce));
+    const securedResponse = new Response(request.method === 'HEAD' ? null : response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers,
+    });
 
     if (request.method === 'HEAD' || !securedResponse.body) return securedResponse;
 

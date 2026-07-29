@@ -21,12 +21,14 @@
     "preview": "astro preview",
     "check": "astro check && tsc --noEmit",
     "test": "npm run test:unit",
-    "test:unit": "vitest run tests/metadata.test.ts tests/cleaning.test.ts",
+    "test:unit": "vitest run tests/metadata.test.ts tests/cleaning.test.ts tests/agent-discovery.test.ts",
     "test:site": "vitest run tests/site-contract.test.ts",
     "test:e2e": "node tests/run-e2e.mjs",
     "validate": "npm run check && npm run test:unit && npm run build && npm run test:site",
     "deploy:dry": "npm run validate && wrangler deploy --dry-run",
-    "deploy": "npm run validate && wrangler deploy"
+    "indexnow:preview": "npm run build && node scripts/submit-indexnow.mjs",
+    "indexnow:send": "node scripts/submit-indexnow.mjs --send",
+    "deploy": "npm run validate && wrangler deploy && npm run indexnow:send"
   },
   "dependencies": {
     "@astrojs/vue": "^7.0.1",

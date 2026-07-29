@@ -1,7 +1,9 @@
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { indexablePaths, SITE_URL } from '../src/data/site';
+import { CONTACT_EMAIL, indexablePaths, SITE_URL } from '../src/data/site';
 
 const dist = join(process.cwd(), 'dist');
 const fileFor = (path: string) => path === '/' ? join(dist, 'index.html') : join(dist, path, 'index.html');
@@ -35,10 +37,61 @@ describe('built public site contract', () => {
     for (const path of indexablePaths) expect(sitemap).toContain(new URL(path, SITE_URL).href);
     expect((sitemap.match(/<url>/g) || []).length).toBe(indexablePaths.length);
     expect(robots).toContain(new URL('/sitemap.xml', SITE_URL).href);
+    expect(robots).toContain('Content-Signal: ai-train=no, search=yes, ai-input=yes');
     expect(llms).toContain('There is no account, protected HTTP API, OAuth service, remote MCP server, or A2A agent.');
     expect(llms).toContain('Each selected file is limited to 10 MB; batches are limited to 20 files and 100 MB combined.');
     expect(SITE_URL).toBe('https://exif.utilitas.app');
     expect(sitemap).not.toContain('workers.dev');
+  });
+
+  it('publishes an IndexNow ownership key and prepares the complete sitemap safely', () => {
+    const key = '4529d0f7171848b7b55503842e8ed0fc';
+    expect(key).toMatch(/^[A-Za-z0-9-]{8,128}$/);
+    expect(readFileSync(join(dist, `${key}.txt`), 'utf8').trim()).toBe(key);
+
+    const result = spawnSync(process.execPath, ['scripts/submit-indexnow.mjs'], {
+      cwd: process.cwd(),
+      encoding: 'utf8',
+    });
+    expect(result.status, result.stderr).toBe(0);
+    expect(result.stdout).toContain('Prepared IndexNow request (not sent)');
+
+    const request = JSON.parse(
+      result.stdout.slice(result.stdout.indexOf('{'), result.stdout.lastIndexOf('}') + 1),
+    );
+    const sitemap = readFileSync(join(dist, 'sitemap.xml'), 'utf8');
+    const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+      (match) => match[1],
+    );
+    expect(request).toEqual({
+      host: 'exif.utilitas.app',
+      key,
+      keyLocation: `https://exif.utilitas.app/${key}.txt`,
+      urlList: sitemapUrls,
+    });
+  });
+
+  it('publishes a valid Agent Skills discovery index with a matching digest', () => {
+    const index = JSON.parse(
+      readFileSync(join(dist, '.well-known', 'agent-skills', 'index.json'), 'utf8'),
+    );
+    expect(index.$schema).toBe('https://schemas.agentskills.io/discovery/0.2.0/schema.json');
+    expect(index.skills).toHaveLength(1);
+    const skill = index.skills[0];
+    expect(skill).toMatchObject({
+      name: 'photo-privacy-review',
+      type: 'skill-md',
+      url: 'https://exif.utilitas.app/.well-known/agent-skills/photo-privacy-review/SKILL.md',
+    });
+    const skillPath = join(
+      dist,
+      '.well-known',
+      'agent-skills',
+      'photo-privacy-review',
+      'SKILL.md',
+    );
+    const digest = createHash('sha256').update(readFileSync(skillPath)).digest('hex');
+    expect(skill.digest).toBe(`sha256:${digest}`);
   });
 
   it('ships security headers, a true 404 asset, social media assets, and raster icons', () => {
@@ -49,12 +102,19 @@ describe('built public site contract', () => {
     expect(worker).toContain("frame-ancestors 'none'");
     expect(worker).toContain("element.setAttribute('nonce', nonce)");
     expect(worker).toContain("const SECURITY_TXT_PATH = '/.well-known/security.txt'");
-    expect(worker).toContain("securityTxtResponse.headers.set('Content-Type', 'text/plain; charset=utf-8')");
+    expect(worker).toContain("headers.set('Content-Type', 'text/plain; charset=utf-8')");
+    expect(worker).toContain("headers.set('Link', HOMEPAGE_DISCOVERY_LINKS)");
+    expect(worker).toContain("headers.set('Content-Signal', CONTENT_SIGNAL)");
+    expect(worker).toContain("acceptsMarkdown(request.headers.get('Accept') || '')");
     for (const file of ['404.html', 'ads.txt', 'og.png', 'favicon.ico', 'favicon.svg', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'site.webmanifest', '.well-known/security.txt']) expect(existsSync(join(dist, file)), file).toBe(true);
     const securityTxt = readFileSync(join(dist, '.well-known', 'security.txt'), 'utf8');
     const contactFields = securityTxt.match(/^Contact: .+$/gm) || [];
     const expiresFields = securityTxt.match(/^Expires: .+$/gm) || [];
-    expect(contactFields).toEqual(['Contact: https://github.com/kirillman200/photo-privacy-lab/security/advisories/new']);
+    expect(CONTACT_EMAIL).toBe('contact@exif.utilitas.app');
+    expect(contactFields).toEqual([
+      'Contact: mailto:contact@exif.utilitas.app',
+      'Contact: https://github.com/kirillman200/photo-privacy-lab/security/advisories/new',
+    ]);
     expect(expiresFields).toHaveLength(1);
     expect(securityTxt).toContain('Preferred-Languages: en');
     expect(securityTxt).toContain('Canonical: https://exif.utilitas.app/.well-known/security.txt');
@@ -71,6 +131,9 @@ describe('built public site contract', () => {
     expect(homepage).toContain('<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">');
     expect(homepage).toContain('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7469113252837951');
     expect(homepage).toContain('crossorigin="anonymous"');
+    expect(homepage).toContain('href="mailto:contact@exif.utilitas.app"');
+    const contactPage = readFileSync(join(dist, 'contact', 'index.html'), 'utf8');
+    expect(contactPage).toContain('href="mailto:contact@exif.utilitas.app"');
   });
 
   it('does not deploy source, tests, secrets, documentation, or source maps', () => {

@@ -39,6 +39,8 @@ The generated `dist/` directory and `worker/index.js` response-security layer ar
 
 After deployment, verify headers, the custom 404 status, representative desktop and mobile routes, private-path failures, sitemap URLs, and the no-image-network-request browser test against the live origin.
 
+The production deploy command also verifies the public IndexNow ownership key and submits every canonical URL from the generated sitemap. Run `npm run indexnow:preview` to inspect the payload without making a network request. Run `npm run indexnow:send` to notify IndexNow again after an already-published content change.
+
 The production configuration disables `workers.dev` and preview URLs so search engines see one canonical public origin.
 
 ## Important limitations

@@ -1,5 +1,5 @@
 ---
-import { navigation, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOURCE_URL } from '../data/site';
+import { CONTACT_EMAIL, navigation, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOURCE_URL } from '../data/site';
 import '../styles/global.css';
 
 interface Props {
@@ -30,6 +30,7 @@ const siteSchema = [
     '@id': `${SITE_URL}/#organization`,
     name: SITE_NAME,
     url: SITE_URL,
+    email: CONTACT_EMAIL,
     logo: new URL('/icon-512.png', SITE_URL).href,
     sameAs: [SOURCE_URL],
   },
@@ -99,7 +100,7 @@ const pageSchema = schema ? [...siteSchema, ...(Array.isArray(schema) ? schema :
         </div>
         <div><h2>Tools</h2>{navigation.slice(0, 3).map((item) => <a href={item.href}>{item.label}</a>)}<a href="/batch-metadata-remover/">Batch cleaner</a><a href="/verify-clean-photo/">Verify a clean copy</a></div>
         <div><h2>Learn</h2><a href="/guides/">All guides</a><a href="/methodology/">Methodology</a><a href="/supported-formats/">Supported formats</a><a href="/limitations/">Limitations</a></div>
-        <div><h2>Trust</h2><a href="/privacy/">Privacy</a><a href="/security/">Security</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a><a href={SOURCE_URL} rel="external noopener">Source code</a></div>
+        <div><h2>Trust</h2><a href="/privacy/">Privacy</a><a href="/security/">Security</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a><a href={SOURCE_URL} rel="external noopener">Source code</a></div>
       </div>
       <div class="footer-bottom"><span>© {new Date().getFullYear()} Photo Privacy Lab</span><span>No account · No upload endpoint · Static browser application</span></div>
     </footer>
