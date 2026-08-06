@@ -59,7 +59,7 @@ const cleanPng = (bytes: Uint8Array): Uint8Array => {
   const parts: Uint8Array[] = [bytes.slice(0, 8)];
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
   let offset = 8;
-  const drop = new Set(['eXIf', 'tEXt', 'zTXt', 'iTXt', 'tIME']);
+  const drop = new Set(['eXIf', 'tEXt', 'zTXt', 'iTXt', 'tIME', 'caBX']);
   while (offset + 12 <= bytes.length) {
     const length = view.getUint32(offset, false);
     const type = ascii(bytes, offset + 4, 4);
@@ -142,6 +142,7 @@ export const buildSafeReport = (scan: ScanResult) => {
     ['Comments and descriptions', scan.findings.some((f) => ['comment', 'user-comment', 'description', 'png-text'].includes(f.id))],
     ['XMP packet', scan.structures.xmp],
     ['IPTC metadata', scan.structures.iptc],
+    ['Content Credentials', scan.structures.contentCredentials],
     ['Embedded thumbnail', scan.structures.embeddedThumbnail],
   ] as const;
   const mapped: VerificationReport['checks'] = checks.map(([category, present]) => ({ category, status: present ? 'present' as const : 'not-found' as const, note: present ? 'This category needs attention.' : 'No supported field was found.' }));

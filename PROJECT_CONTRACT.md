@@ -31,9 +31,9 @@ The repository root, source, tests, local environment files, package caches, dep
 
 ## Real capabilities
 
-- Local metadata scanning and risk classification
+- Local metadata scanning and risk classification, including PNG C2PA container detection without cryptographic validation
 - Lossless JPEG privacy cleaning with minimal orientation preservation
-- PNG and static WebP privacy-bearing chunk removal
+- PNG and static WebP privacy-bearing chunk removal, including PNG C2PA `caBX` removal
 - Full flattening and visual redaction
 - Output rescanning and privacy-safe text or JSON reports
 - Background browser worker batch processing and ZIP export

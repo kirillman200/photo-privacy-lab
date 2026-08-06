@@ -26,6 +26,7 @@ export interface ScanResult {
     comments: boolean;
     embeddedThumbnail: boolean;
     iccProfile: boolean;
+    contentCredentials: boolean;
   };
 }
 

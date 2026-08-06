@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { guides, SITE_URL } from '../../data/site';
-const description = 'Original guides to photo metadata, GPS location, EXIF orientation, embedded previews, safe screenshot redaction, and sharing checklists.';
+const description = 'Original guides to photo metadata examples, screenshot metadata, ChatGPT image metadata, GPS location, EXIF orientation, redaction, and safer sharing.';
 const schema = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Photo privacy guides', url: new URL('/guides/', SITE_URL).href, description };
 ---
 <BaseLayout title="Photo privacy guides" description={description} path="/guides/" schema={schema}>

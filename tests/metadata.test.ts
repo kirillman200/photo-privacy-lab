@@ -21,11 +21,12 @@ describe('metadata scanning', () => {
     expect(result.findings.map((item) => item.id)).toEqual(expect.arrayContaining(['device-model', 'capture-time', 'owner', 'gps', 'xmp', 'iptc', 'comment', 'icc']));
   });
 
-  it('scans PNG text, dimensions, and ICC profile', () => {
+  it('scans PNG text, dimensions, Content Credentials, and ICC profile', () => {
     const result = scanBytes(privatePng(), 'private.png');
     expect(result.format).toBe('png');
     expect([result.width, result.height]).toEqual([2, 3]);
-    expect(result.findings.map((item) => item.id)).toEqual(expect.arrayContaining(['png-text', 'icc']));
+    expect(result.findings.map((item) => item.id)).toEqual(expect.arrayContaining(['png-text', 'content-credentials', 'icc']));
+    expect(result.structures.contentCredentials).toBe(true);
   });
 
   it('scans WebP EXIF and XMP chunks', () => {

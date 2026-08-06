@@ -41,14 +41,34 @@ export const tools: ToolPage[] = [
     ],
   },
   {
+    slug: 'photo-metadata-viewer',
+    title: 'Photo Metadata Viewer',
+    shortTitle: 'Metadata viewer',
+    description: 'View photo information including format, dimensions, GPS, dates, device details, comments, XMP, IPTC, and embedded previews without uploading the image.',
+    eyebrow: 'See the information in a picture',
+    mode: 'scan',
+    intro: 'Open the exact JPEG, PNG, or static WebP file you want to inspect. The viewer separates ordinary picture details from hidden information that may deserve attention before sharing.',
+    outcomes: ['Image format, file size, and dimensions', 'EXIF GPS and capture details', 'Owner, device, comments, XMP, and IPTC fields', 'Embedded previews and PNG Content Credentials containers'],
+    steps: [
+      { title: 'Choose the original picture', body: 'Use the actual file rather than a social-media preview or thumbnail, because different copies can contain different metadata.' },
+      { title: 'Read the grouped results', body: 'The viewer sorts findings into critical, personal, contextual, and technical information instead of showing an unexplained tag list.' },
+      { title: 'Act on the exact copy', body: 'If something should not travel with the image, create a cleaned copy and scan that exported file again.' },
+    ],
+    faq: [
+      { q: 'What information can I get from a picture?', a: 'Supported files can report format, dimensions, GPS, capture time, device and owner fields, comments, XMP, IPTC, orientation, color profile, and embedded-preview indicators. The exact result depends on what the file contains.' },
+      { q: 'Can picture information identify a location?', a: 'Yes. EXIF GPS can contain coordinates, while visible signs, addresses, landmarks, and reflections can reveal a place even when GPS is absent.' },
+      { q: 'Does no metadata mean the picture is anonymous?', a: 'No. A clean scan covers supported hidden structures only. The visible pixels and the context in which the picture is posted can still identify people, places, devices, or events.' },
+    ],
+  },
+  {
     slug: 'remove-photo-metadata',
     title: 'Remove Photo Metadata',
     shortTitle: 'Metadata remover',
-    description: 'Remove common private EXIF, XMP, IPTC, comment, timestamp, and preview data locally, then rescan the exported copy.',
+    description: 'Remove common private EXIF, XMP, IPTC, comment, timestamp, preview, and supported PNG Content Credentials data locally, then rescan the exported copy.',
     eyebrow: 'Clean hidden information',
     mode: 'clean',
     intro: 'Use Privacy Clean when you want to preserve JPEG compressed image data. Use Full Flatten when you want a freshly rendered file with normalized orientation.',
-    outcomes: ['Lossless JPEG segment cleaning', 'Fresh flattened PNG, JPEG, or WebP export', 'Safe orientation handling', 'Automatic clean-copy verification'],
+    outcomes: ['Lossless JPEG segment cleaning', 'PNG Content Credentials container removal', 'Fresh flattened PNG, JPEG, or WebP export', 'Automatic clean-copy verification'],
     steps: [
       { title: 'Scan first', body: 'The original file is inspected so you can see what will change.' },
       { title: 'Select a cleaning mode', body: 'Privacy Clean preserves compressed JPEG image data. Full Flatten redraws the visible image.' },
@@ -143,6 +163,11 @@ export interface GuidePage {
   description: string;
   audience: string;
   readTime: string;
+  datePublished?: string;
+  dateModified?: string;
+  toolSlug?: string;
+  toolLabel?: string;
+  sources?: Array<{ href: string; label: string }>;
   sections: Array<{ heading: string; paragraphs: string[]; checklist?: string[] }>;
 }
 
@@ -303,6 +328,62 @@ export const guides: GuidePage[] = [
       { heading: 'A Web Worker is not a Cloudflare Worker', paragraphs: ['A browser Web Worker is a background thread on your device. Cloudflare Workers run on Cloudflare infrastructure. Photo Privacy Lab uses the former for batch processing and does not send images to the latter.'] },
     ],
   },
+  {
+    slug: 'clean-chatgpt-image-metadata',
+    title: 'How to check and clean ChatGPT image metadata',
+    description: 'Inspect a downloaded ChatGPT image, understand C2PA Content Credentials and SynthID, remove supported metadata from a sharing copy, and verify what changed.',
+    audience: 'People downloading and sharing AI-generated images',
+    readTime: '8 min',
+    datePublished: '2026-08-06',
+    dateModified: '2026-08-06',
+    toolSlug: 'remove-photo-metadata',
+    toolLabel: 'Open the metadata cleaner',
+    sources: [
+      { href: 'https://help.openai.com/en/articles/8912793-c2pa-in-dall-e-3', label: 'OpenAI: C2PA and SynthID in generated images' },
+      { href: 'https://spec.c2pa.org/specifications/specifications/2.4/specs/ContentCredentials.html', label: 'C2PA Content Credentials specification' },
+    ],
+    sections: [
+      { heading: 'Start with the downloaded file', paragraphs: ['Do not infer metadata from how an image looks in a chat window. Download the image and inspect that exact file, because copying, editing, screenshotting, and posting through another service can change which metadata survives.', 'Photo Privacy Lab reads supported structures locally. It does not send the selected image to this site or to OpenAI.'] },
+      { heading: 'Generated images can carry provenance signals', paragraphs: ['OpenAI states that images generated with ChatGPT, Codex, and its API include C2PA metadata and SynthID watermarks. C2PA is file metadata used to carry provenance information. SynthID is a separate signal embedded in the image itself.', 'The local scanner can report a PNG C2PA Content Credentials container. It does not validate the signature or decide who created the image. Use OpenAI Verify or a dedicated Content Credentials validator when provenance verification is the goal.'] },
+      { heading: 'Choose what clean means for your purpose', paragraphs: ['Privacy Clean removes supported metadata while preserving the image payload where the format allows it. Full Flatten decodes the visible image and creates a new file without inheriting the original metadata blocks.', 'Removing metadata is not the same as removing every provenance signal. A pixel-level watermark may survive flattening or other transformations. This tool does not detect, remove, or make claims about SynthID.'] },
+      { heading: 'Verify the exported copy', paragraphs: ['Scan the downloaded clean or flattened copy, not just the original. Confirm that supported Content Credentials, text, EXIF, XMP, IPTC, GPS, comments, and embedded previews are no longer reported.', 'A missing C2PA container does not prove that an image was not generated by OpenAI. Metadata can be lost during ordinary transformations, and provenance requires a purpose-built validator.'], checklist: ['Download the exact image', 'Scan before changing it', 'Choose Privacy Clean or Full Flatten', 'Download the derivative', 'Scan the derivative again'] },
+    ],
+  },
+  {
+    slug: 'do-screenshots-have-metadata',
+    title: 'Do screenshots have metadata?',
+    description: 'Learn which metadata a screenshot may contain, how operating systems and apps differ, and how to inspect the exact screenshot before sharing it.',
+    audience: 'Anyone sharing screenshots',
+    readTime: '7 min',
+    datePublished: '2026-08-06',
+    dateModified: '2026-08-06',
+    toolSlug: 'photo-metadata-viewer',
+    toolLabel: 'Check a screenshot locally',
+    sections: [
+      { heading: 'Yes, a screenshot can have metadata', paragraphs: ['A screenshot is an image file, and image files can contain metadata. The exact fields depend on the operating system, capture tool, editor, export format, and any service that handled the file afterward.', 'Many screenshots contain fewer camera-specific fields than photos because there is no lens, exposure, or camera GPS capture. They can still carry dimensions, color information, timestamps, software fields, text chunks, profiles, or other application-added data.'] },
+      { heading: 'The visible screen is usually the bigger risk', paragraphs: ['Notifications, tabs, email addresses, usernames, account balances, document titles, QR codes, recovery codes, and background windows are stored in the pixels. Removing EXIF cannot remove those details.', 'Review the entire frame at full size. Crop unnecessary areas and use permanent solid masks for secrets before flattening the result into new pixels.'] },
+      { heading: 'Different copies can produce different answers', paragraphs: ['The original screenshot, an edited copy, a pasted version, and a file downloaded from a messaging platform may not have the same metadata. Some transformations remove fields and others add software or time information.', 'Inspect the exact copy you intend to send. If you redact it, inspect the exported redacted copy again rather than relying on the source-file result.'] },
+      { heading: 'Use a two-part screenshot check', paragraphs: ['First, run a metadata scan for supported hidden structures. Second, inspect the visible image for secrets and contextual clues. Neither review replaces the other.'], checklist: ['Open the final screenshot file', 'Check hidden metadata', 'Review every visible edge at full size', 'Use solid masks for secrets', 'Flatten and rescan the shared copy'] },
+    ],
+  },
+  {
+    slug: 'photo-metadata-examples',
+    title: 'Photo metadata examples and what they mean',
+    description: 'See practical examples of EXIF GPS, capture time, device, owner, XMP, IPTC, comments, orientation, profiles, and embedded previews.',
+    audience: 'People learning how to read picture information',
+    readTime: '9 min',
+    datePublished: '2026-08-06',
+    dateModified: '2026-08-06',
+    toolSlug: 'photo-metadata-viewer',
+    toolLabel: 'View your photo metadata',
+    sections: [
+      { heading: 'Location and time example', paragraphs: ['A result such as GPS coordinates 43.653200, -79.383200 identifies a point in decimal degrees. Capture time might appear as 2026:08:06 14:32:10. Together, location and time can connect a photo to a home, workplace, trip, appointment, or routine.', 'Coordinates are high-risk when they identify a sensitive place. A timestamp is contextual: it may be harmless in one image and revealing when combined with a location or posting history.'] },
+      { heading: 'Device and owner example', paragraphs: ['A device model might name the phone or camera family. A serial field, image identifier, artist name, or copyright field can be more identifying because it may connect multiple files to one device or person.', 'The scanner separates common technical information from fields that deserve a privacy decision. It does not assume every camera model is secret.'] },
+      { heading: 'Description and workflow example', paragraphs: ['JPEG comments, PNG text, XMP packets, and IPTC blocks can carry captions, creator details, keywords, locations, editing history, or publishing information. A photo can have no EXIF GPS and still contain a location in XMP or a caption.', 'This is why an EXIF-only check is incomplete. Review each supported metadata family and the embedded preview category.'] },
+      { heading: 'Technical metadata example', paragraphs: ['Dimensions such as 4032 by 3024 describe the pixel grid. Orientation tells software how to rotate stored pixels. An ICC profile helps preserve intended color. These fields are usually functional rather than private.', 'A cleaner should explain what it preserves. Removing orientation without normalizing pixels can rotate the image, while discarding a color profile can change appearance.'] },
+      { heading: 'How to read your own result', paragraphs: ['Open the original file in the metadata viewer and compare each finding with the audience and purpose of the share. Then create a separate derivative, clean or redact it, and scan the derivative again.'], checklist: ['Treat GPS as location data', 'Review timestamps in context', 'Check device and owner identifiers', 'Look beyond EXIF to XMP and IPTC', 'Preserve useful display information when appropriate'] },
+    ],
+  },
 ];
 
 export interface TrustPage {
@@ -328,8 +409,8 @@ export const trustPages: TrustPage[] = [
     slug: 'methodology', title: 'Technical methodology', description: 'How Photo Privacy Lab scans, cleans, flattens, and verifies supported image formats.',
     intro: 'The product reports only what its parsers and output checks can support. This page documents the current technical boundary.',
     sections: [
-      { heading: 'Scanning', paragraphs: ['JPEG parsing walks marker segments and TIFF-style EXIF directories with strict offset checks. PNG parsing inventories chunks. WebP parsing inventories RIFF chunks. The scanner classifies findings rather than executing metadata content.'] },
-      { heading: 'Privacy Clean', paragraphs: ['JPEG cleaning removes EXIF, XMP, IPTC, comment, and embedded-preview segments while preserving compressed scan data and ICC color profiles. When required, a new minimal EXIF block contains only the original orientation value. PNG and WebP cleaning removes supported privacy-bearing chunks without changing image payload chunks.'] },
+      { heading: 'Scanning', paragraphs: ['JPEG parsing walks marker segments and TIFF-style EXIF directories with strict offset checks. PNG parsing inventories chunks, including the C2PA caBX container used for Content Credentials. WebP parsing inventories RIFF chunks. The scanner classifies findings rather than executing metadata content.', 'Content Credentials detection reports that a supported container exists. It does not cryptographically validate the manifest, identify its issuer, or prove who created the image.'] },
+      { heading: 'Privacy Clean', paragraphs: ['JPEG cleaning removes EXIF, XMP, IPTC, comment, and embedded-preview segments while preserving compressed scan data and ICC color profiles. When required, a new minimal EXIF block contains only the original orientation value. PNG cleaning also removes a detected C2PA caBX container. PNG and WebP cleaning removes supported privacy-bearing chunks without changing image payload chunks.'] },
       { heading: 'Full Flatten and redaction', paragraphs: ['The browser decodes the displayed image, applies orientation, crop, and visible masks, then encodes a fresh JPEG, PNG, or WebP. The export does not reuse the original metadata blocks or embedded preview.'] },
       { heading: 'Verification', paragraphs: ['Generated bytes are parsed again. Reports include categories and presence outcomes, but omit removed private source values by default. Verification does not analyze faces, signs, reflections, or other visible context.'] },
     ],
@@ -339,7 +420,7 @@ export const trustPages: TrustPage[] = [
     intro: 'Narrow and testable support is more trustworthy than a vague promise to remove all metadata from every file type.',
     sections: [
       { heading: 'JPEG', paragraphs: ['Deepest support: EXIF and GPS scanning, orientation reading, embedded-thumbnail detection, XMP, IPTC, comments, ICC preservation, lossless metadata-segment cleaning, flattening, and verification.'] },
-      { heading: 'PNG', paragraphs: ['Supports IHDR dimensions plus common eXIf, text, time, and XMP-bearing chunk detection and removal. Critical image data and color-profile chunks are preserved. Flattening is available when a fresh render is preferred.'] },
+      { heading: 'PNG', paragraphs: ['Supports IHDR dimensions plus common eXIf, text, time, XMP-bearing, and C2PA caBX chunk detection and removal. C2PA support detects the container but does not validate provenance claims or signatures. Critical image data and color-profile chunks are preserved. Flattening is available when a fresh render is preferred.'] },
       { heading: 'WebP', paragraphs: ['Supports static RIFF WebP chunk scanning and common EXIF, XMP, and ICC metadata handling. Metadata flags are updated when chunks are removed. Animated WebP is rejected for cleaning.'] },
       { heading: 'Not included in version 1', paragraphs: ['HEIC, HEIF, TIFF, AVIF, GIF, RAW formats, documents, audio, and video are not accepted. Format support may expand only after cross-browser and privacy fixture testing.'] },
     ],

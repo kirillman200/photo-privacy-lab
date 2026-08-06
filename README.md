@@ -9,9 +9,9 @@ No environment variables, runtime secrets, database credentials, or browser-expo
 ## What works
 
 - JPEG, PNG, and static WebP privacy scanning
-- Risk-based GPS, device, time, owner, comment, XMP, IPTC, preview, orientation, and ICC reporting
+- Risk-based GPS, device, time, owner, comment, XMP, IPTC, preview, orientation, ICC, and PNG C2PA container reporting
 - JPEG compressed-data-preserving privacy cleaning
-- PNG and static WebP metadata-chunk cleaning
+- PNG and static WebP metadata-chunk cleaning, including PNG C2PA `caBX` removal
 - Fresh flattened exports and a manual redaction canvas
 - Independent output rescanning with safe text and JSON reports
 - Sequential background-worker batch cleaning with ZIP export

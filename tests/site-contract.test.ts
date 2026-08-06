@@ -44,6 +44,23 @@ describe('built public site contract', () => {
     expect(sitemap).not.toContain('workers.dev');
   });
 
+  it('answers every Search Console query cluster with a canonical tool or guide', () => {
+    const coverage = [
+      { path: '/guides/clean-chatgpt-image-metadata/', phrases: ['ChatGPT image metadata', 'C2PA', 'SynthID'] },
+      { path: '/remove-gps-from-photo/', phrases: ['GPS', 'location'] },
+      { path: '/screenshot-redactor/', phrases: ['redact', 'solid'] },
+      { path: '/photo-metadata-viewer/', phrases: ['Photo Metadata Viewer', 'information', 'picture'] },
+      { path: '/batch-metadata-remover/', phrases: ['Batch Photo Metadata Remover', '20 files'] },
+      { path: '/guides/do-screenshots-have-metadata/', phrases: ['screenshots have metadata', 'visible screen'] },
+      { path: '/guides/photo-metadata-examples/', phrases: ['metadata examples', 'Device and owner'] },
+    ];
+
+    for (const item of coverage) {
+      const html = readFileSync(fileFor(item.path), 'utf8').toLowerCase();
+      for (const phrase of item.phrases) expect(html).toContain(phrase.toLowerCase());
+    }
+  });
+
   it('publishes an IndexNow ownership key and prepares the complete sitemap safely', () => {
     const key = '4529d0f7171848b7b55503842e8ed0fc';
     expect(key).toMatch(/^[A-Za-z0-9-]{8,128}$/);

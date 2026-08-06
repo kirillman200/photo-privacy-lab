@@ -63,7 +63,7 @@ export const privatePng = (): Uint8Array => {
   view.setUint32(0, 2, false);
   view.setUint32(4, 3, false);
   ihdr.set([8, 6, 0, 0, 0], 8);
-  return concatBytes(signature, makePngChunk('IHDR', ihdr), makePngChunk('tEXt', text('Location\0Home')), makePngChunk('iCCP', text('Display P3\0')), makePngChunk('IDAT', new Uint8Array([1, 2, 3])), makePngChunk('IEND', new Uint8Array()));
+  return concatBytes(signature, makePngChunk('IHDR', ihdr), makePngChunk('tEXt', text('Location\0Home')), makePngChunk('caBX', text('synthetic-c2pa-manifest')), makePngChunk('iCCP', text('Display P3\0')), makePngChunk('IDAT', new Uint8Array([1, 2, 3])), makePngChunk('IEND', new Uint8Array()));
 };
 
 const webpChunk = (type: string, payload: Uint8Array) => {

@@ -98,7 +98,7 @@ const pageSchema = schema ? [...siteSchema, ...(Array.isArray(schema) ? schema :
           <p>Check hidden risks, clean the file, redact visible information, and verify the exact copy you will share.</p>
           <div class="footer-local"><span></span> Selected image files stay in your browser</div>
         </div>
-        <div><h2>Tools</h2>{navigation.slice(0, 3).map((item) => <a href={item.href}>{item.label}</a>)}<a href="/batch-metadata-remover/">Batch cleaner</a><a href="/verify-clean-photo/">Verify a clean copy</a></div>
+        <div><h2>Tools</h2>{navigation.slice(0, 3).map((item) => <a href={item.href}>{item.label}</a>)}<a href="/photo-metadata-viewer/">Metadata viewer</a><a href="/batch-metadata-remover/">Batch cleaner</a><a href="/verify-clean-photo/">Verify a clean copy</a></div>
         <div><h2>Learn</h2><a href="/guides/">All guides</a><a href="/methodology/">Methodology</a><a href="/supported-formats/">Supported formats</a><a href="/limitations/">Limitations</a></div>
         <div><h2>Trust</h2><a href="/privacy/">Privacy</a><a href="/security/">Security</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a><a href={SOURCE_URL} rel="external noopener">Source code</a></div>
       </div>

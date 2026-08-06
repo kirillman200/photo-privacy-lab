@@ -23,6 +23,7 @@ describe('privacy cleaning and verification', () => {
     expect(ascii(result.bytes, 1, 3)).toBe('PNG');
     expect(privateFindings(result.verification)).toHaveLength(0);
     expect(result.verification.structures.iccProfile).toBe(true);
+    expect(result.verification.structures.contentCredentials).toBe(false);
   });
 
   it('removes WebP EXIF and XMP chunks and clears their VP8X flags', () => {

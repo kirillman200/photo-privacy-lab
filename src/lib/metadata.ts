@@ -175,7 +175,7 @@ const baseResult = (name: string, format: ImageFormat, size: number): ScanResult
   orientation: 1,
   animated: false,
   findings: [],
-  structures: { exif: false, xmp: false, iptc: false, comments: false, embeddedThumbnail: false, iccProfile: false },
+  structures: { exif: false, xmp: false, iptc: false, comments: false, embeddedThumbnail: false, iccProfile: false, contentCredentials: false },
 });
 
 const scanJpeg = (bytes: Uint8Array, name: string): ScanResult => {
@@ -253,6 +253,9 @@ const scanPng = (bytes: Uint8Array, name: string): ScanResult => {
       result.findings.push(finding(isXmp ? 'xmp' : 'png-text', isXmp ? 'XMP packet' : 'PNG text field', text || 'Present', 'personal'));
     } else if (type === 'tIME') {
       result.findings.push(finding('png-time', 'PNG modification time', 'Present', 'contextual'));
+    } else if (type === 'caBX') {
+      result.structures.contentCredentials = true;
+      result.findings.push(finding('content-credentials', 'C2PA Content Credentials container', 'Present', 'contextual', 'Can carry signed provenance about where an image came from and how it changed. Container detection does not validate the credential.'));
     } else if (type === 'iCCP') {
       result.structures.iccProfile = true;
       result.findings.push(finding('icc', 'ICC color profile', 'Present', 'technical', 'Usually preserved to maintain intended color.'));
@@ -322,6 +325,7 @@ export const buildVerificationReport = (scan: ScanResult): VerificationReport =>
     { category: 'Comments and descriptions', status: ['comment', 'user-comment', 'description', 'png-text'].some(has) ? 'present' : 'not-found', note: 'Checks supported comment and description fields.' },
     { category: 'XMP packet', status: scan.structures.xmp ? 'present' : 'not-found', note: 'Checks JPEG, PNG, and WebP XMP containers.' },
     { category: 'IPTC metadata', status: scan.structures.iptc ? 'present' : 'not-found', note: 'Checks JPEG APP13 metadata blocks.' },
+    { category: 'Content Credentials', status: scan.structures.contentCredentials ? 'present' : 'not-found', note: 'Detects a PNG C2PA caBX container but does not validate its signature or claims.' },
     { category: 'Embedded thumbnail', status: scan.structures.embeddedThumbnail ? 'present' : 'not-found', note: 'Checks supported EXIF thumbnail pointers.' },
     { category: 'Orientation', status: scan.orientation === 1 ? 'not-found' : 'preserved', note: scan.orientation === 1 ? 'No rotation instruction is required.' : 'A minimal display-orientation instruction remains.' },
     { category: 'ICC color profile', status: scan.structures.iccProfile ? 'preserved' : 'not-found', note: scan.structures.iccProfile ? 'Color profile is present.' : 'No ICC profile was found.' },
