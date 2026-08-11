@@ -149,6 +149,13 @@ describe('built public site contract', () => {
     expect(homepage).toContain('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7469113252837951');
     expect(homepage).toContain('crossorigin="anonymous"');
     expect(homepage).toContain('href="mailto:contact@exif.utilitas.app"');
+    expect(homepage).toContain('name="google-analytics-id" content="G-BJFPFMSEDJ"');
+    expect(homepage).toContain('Selected photos, filenames, previews, extracted metadata, and redaction details are never sent');
+    expect(homepage).toContain('src="/js/analytics.js"');
+    const analytics = readFileSync(join(dist, 'js', 'analytics.js'), 'utf8');
+    expect(analytics).toContain('navigator.globalPrivacyControl === true');
+    expect(analytics).toContain('window.location.origin + window.location.pathname');
+    expect(analytics).not.toContain('window.location.search');
     const contactPage = readFileSync(join(dist, 'contact', 'index.html'), 'utf8');
     expect(contactPage).toContain('href="mailto:contact@exif.utilitas.app"');
   });

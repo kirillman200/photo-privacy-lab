@@ -19,7 +19,7 @@ The repository root, source, tests, local environment files, package caches, dep
 - Selected image bytes, previews, filenames, parsed values, redaction geometry, clean copies, and reports stay in the browser.
 - The static host receives ordinary page and asset requests. It does not receive selected image files.
 - Google AdSense is loaded for advertising and may receive ordinary browser, page, and request information. Selected image bytes, previews, filenames, parsed values, redaction geometry, clean copies, and reports are never supplied to it.
-- No first-party analytics, support, map, or error-reporting script is loaded.
+- The separate GA4 property loads only after explicit consent and never receives selected-photo data, filenames, extracted metadata, redaction geometry, or query strings. No support, map, or error-reporting script is loaded.
 - Opening OpenStreetMap is a separate, explicit user action with a warning.
 
 ## Untrusted inputs and limits

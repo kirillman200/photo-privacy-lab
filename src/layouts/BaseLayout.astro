@@ -44,6 +44,7 @@ const pageSchema = schema ? [...siteSchema, ...(Array.isArray(schema) ? schema :
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0b1720" />
     <meta name="color-scheme" content="light" />
+    <meta name="google-analytics-id" content="G-BJFPFMSEDJ" data-host="exif.utilitas.app" />
     <meta name="google-adsense-account" content="ca-pub-7469113252837951" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -104,5 +105,19 @@ const pageSchema = schema ? [...siteSchema, ...(Array.isArray(schema) ? schema :
       </div>
       <div class="footer-bottom"><span>© {new Date().getFullYear()} Photo Privacy Lab</span><span>No account · No upload endpoint · Static browser application</span></div>
     </footer>
+    <aside class="analytics-consent" data-analytics-consent hidden aria-labelledby="analytics-consent-title">
+      <div>
+        <p class="analytics-consent__kicker">Optional page analytics</p>
+        <h2 id="analytics-consent-title">Keep image data private</h2>
+        <p>Google Analytics loads only if you allow it. It receives a query-free page path, page title, referrer origin, and ordinary device or browser information. Selected photos, filenames, previews, extracted metadata, and redaction details are never sent. <a href="/privacy/">Read the privacy policy</a>.</p>
+        <p class="analytics-consent__status" data-analytics-status aria-live="polite"></p>
+      </div>
+      <div class="analytics-consent__actions">
+        <button type="button" data-analytics-allow>Allow page analytics</button>
+        <button type="button" data-analytics-deny>Keep analytics off</button>
+      </div>
+    </aside>
+    <button class="analytics-settings" type="button" data-analytics-settings hidden>Analytics choices</button>
+    <script is:inline src="/js/analytics.js" defer></script>
   </body>
 </html>
