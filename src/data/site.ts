@@ -384,6 +384,60 @@ export const guides: GuidePage[] = [
       { heading: 'How to read your own result', paragraphs: ['Open the original file in the metadata viewer and compare each finding with the audience and purpose of the share. Then create a separate derivative, clean or redact it, and scan the derivative again.'], checklist: ['Treat GPS as location data', 'Review timestamps in context', 'Check device and owner identifiers', 'Look beyond EXIF to XMP and IPTC', 'Preserve useful display information when appropriate'] },
     ],
   },
+  {
+    slug: 'remove-location-from-iphone-photos',
+    title: 'How to remove location from iPhone photos before sharing',
+    description: 'Use Apple Photos sharing controls, remove a saved location, and verify the exact exported file for GPS and other metadata before posting it.',
+    audience: 'iPhone and iPad users sharing photos',
+    readTime: '8 min',
+    datePublished: '2026-08-25',
+    dateModified: '2026-08-25',
+    toolSlug: 'verify-clean-photo',
+    toolLabel: 'Verify the final photo',
+    sources: [
+      { href: 'https://support.apple.com/en-au/guide/personal-safety/ips0d7a5df82/web', label: 'Apple Personal Safety User Guide: manage location metadata in Photos' },
+      { href: 'https://www.apple.com/legal/privacy/data/en/photos/', label: 'Apple Photos and Privacy' },
+    ],
+    sections: [
+      {
+        heading: 'Choose whether to hide location for one share or remove it from the library',
+        paragraphs: [
+          'For a one-time share, Apple documents a Share Sheet control that leaves the library copy organized by place but omits location from that sharing action. Select the photo or photos, open Share, choose Options, turn off Location, and complete the share.',
+          'To remove the saved location association from a photo in the Photos app, open the photo, choose the More button, select Adjust Location, and choose No Location. Keep in mind that menus can move between software versions, so use Apple\'s current guide when the labels on your device differ.',
+        ],
+        checklist: ['One share only: Share, Options, Location off', 'Library change: More, Adjust Location, No Location', 'Check every selected item in a multi-photo share'],
+      },
+      {
+        heading: 'Decide whether future photos should keep location',
+        paragraphs: [
+          'Apple says the Camera app can embed coordinates when it has access to Location Services. You can stop future collection through Settings, Privacy & Security, Location Services, Camera, then Never. That also removes location-based organization and search for future captures.',
+          'A more selective routine is often useful: keep location for a private library, disable it for sensitive shoots, or remove it from a derivative before public sharing. The right choice depends on whether the organizational benefit is worth retaining the coordinates in the original.',
+        ],
+      },
+      {
+        heading: 'Verify the file that actually left Photos',
+        paragraphs: [
+          'A setting shown in Photos is not the same as a check of the delivered bytes. The receiving app may request an original, create a derivative, or handle metadata differently. Save or receive the shared copy, then inspect that exact JPEG, PNG, or static WebP file instead of rescanning the private original.',
+          'Photo Privacy Lab checks supported GPS, capture time, device, owner, XMP, IPTC, comment, and embedded-preview structures locally in the browser. If GPS remains, create a cleaned sharing copy and run an independent scan on the output before posting it.',
+        ],
+        checklist: ['Export or receive the final copy', 'Open the final copy in the verifier', 'Confirm GPS is not found', 'Review time, device, owner, XMP, IPTC, and previews', 'Share only the verified derivative'],
+      },
+      {
+        heading: 'Review visible location clues too',
+        paragraphs: [
+          'Removing GPS does not remove a house number, street sign, school logo, boarding pass, vehicle plate, reflection, or recognizable landmark. Crop unnecessary surroundings or use a solid flattened mask for details that should not be public.',
+          'Keep the original private if you want to preserve capture history. Give the sharing copy a distinct filename and inspect it at full resolution. A clean metadata result supports one part of the decision, but it does not prove that the visible scene is anonymous.',
+        ],
+      },
+      {
+        heading: 'Use a repeatable iPhone sharing routine',
+        paragraphs: [
+          'Before a public post, decide who needs the photo, remove unnecessary location data, review visible clues, and verify the derivative. For several photos, check the batch rather than assuming one Share Sheet choice produced identical outputs for every destination.',
+          'Apple controls are the fastest first step for iPhone and iPad users. Independent file verification adds evidence about the copy you will share and helps catch metadata outside the location field.',
+        ],
+      },
+    ],
+  },
 ];
 
 export interface TrustPage {
