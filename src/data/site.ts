@@ -173,6 +173,77 @@ export interface GuidePage {
 
 export const guides: GuidePage[] = [
   {
+  "slug": "photo-filename-privacy",
+  "title": "Photo filename privacy: rename the copy before sharing",
+  "description": "A photo filename can reveal a name, address or project even after metadata cleaning. Check the filename, archive entries and exact exported image before sharing.",
+  "audience": "People sharing photos and image attachments",
+  "readTime": "5 min",
+  "datePublished": "2026-09-08",
+  "dateModified": "2026-09-08",
+  "toolSlug": "verify-clean-photo",
+  "toolLabel": "Verify the final image",
+  "sections": [
+    {
+      "heading": "A clean image can still have a revealing name",
+      "paragraphs": [
+        "Yes, a filename can disclose information even when GPS and other embedded metadata have been removed. A name such as client-jordan-home-address.jpg gives a recipient context without requiring an EXIF viewer. Review the name of the exported copy as a separate step from scanning its contents.",
+        "MDN documents that a browser can read the name of a file selected by the user through the File API. That name is separate from the image's embedded metadata. This does not mean every site uploads it, but it explains why a filename belongs in the sharing review rather than being assumed invisible."
+      ],
+      "checklist": [
+        "People, client or employer names",
+        "Street addresses, school names or appointment details",
+        "Case references, account identifiers or confidential project labels",
+        "Dates or sequence numbers that reveal more context than intended"
+      ]
+    },
+    {
+      "heading": "Choose a useful neutral filename",
+      "paragraphs": [
+        "Make a derivative for sharing and give it a neutral name that still helps you select the right attachment. For example, listing-chair-01.jpg explains the content without adding a seller's surname or apartment number. For an image review, diagram-review-02.png may be enough. These are naming examples, not a rule that every date or descriptive word is private.",
+        "Keep the correct extension, such as .jpg, .png or .webp. Renaming is not format conversion and does not clean the image bytes. Changing a .jpg ending to .png does not turn a JPEG into a PNG, and changing a personal filename does not remove a GPS record embedded inside it. Use the appropriate image operation for each task."
+      ]
+    },
+    {
+      "heading": "Rename the exported copy, then open it again",
+      "paragraphs": [
+        "First clean metadata or apply the visual redactions the image requires. Download the result, find that exact file and rename it using your device's file manager. Microsoft documents Rename among File Explorer's file actions. Avoid renaming the only original when you need it for private records, evidence or later editing.",
+        "Open the renamed image to check that it is the intended derivative. Look for a crop or solid redaction you deliberately applied, inspect the visible background and rescan the exported file in the clean-copy verifier. The filename check, pixel review and metadata rescan answer different questions, so none should stand in for the other two."
+      ]
+    },
+    {
+      "heading": "Check batches and ZIP contents too",
+      "paragraphs": [
+        "A neutral archive name does not make the names of files inside it neutral. Before sharing a batch, inspect both the ZIP's name and its entry names. If any names disclose private context, rename the derivative files and create a new archive using your device's normal archive workflow.",
+        "Photo Privacy Lab supports local batch cleaning for its supported image formats, but a batch completion message is not a review of your naming choices. Reopen the final archive and sample the images you intend to send. Confirm that an older original or a duplicate with a revealing name has not been included alongside the cleaned copies."
+      ]
+    },
+    {
+      "heading": "Review what the recipient will receive",
+      "paragraphs": [
+        "Where possible, inspect the pending attachment name in the destination app before sending. Delivery services handle names differently, and a service changing a name today is not a promise about another upload route or a future version. Prepare the copy to be suitable even if its filename is preserved.",
+        "Do not treat renaming as anonymity. Faces, landmarks, reflections, account context, captions and the timing of a post can still identify someone. Photo Privacy Lab scans supported hidden-data categories; it does not automatically detect all sensitive visible details. For a high-risk disclosure, seek an appropriate independent review instead of relying on a clean report."
+      ],
+      "checklist": [
+        "Neutral filename with the correct image extension",
+        "Exact derivative opened and visually checked",
+        "Final image rescanned for supported metadata",
+        "Archive entries and attachment selection reviewed",
+        "Private original kept out of the sharing folder"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "MDN: File.name and the filename exposed to a browser",
+      "href": "https://developer.mozilla.org/en-US/docs/Web/API/File/name"
+    },
+    {
+      "label": "Microsoft: file management and Rename in File Explorer",
+      "href": "https://support.microsoft.com/en-us/windows/experience/fileexplorer/file-explorer-in-windows"
+    }
+  ]
+},
+  {
     slug: 'what-photo-metadata-can-reveal',
     title: 'What information can photo metadata reveal?',
     description: 'A practical guide to location, time, device, ownership, editing, preview, and technical fields stored alongside image pixels.',
