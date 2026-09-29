@@ -173,6 +173,80 @@ export interface GuidePage {
 
 export const guides: GuidePage[] = [
   {
+  "slug": "photo-file-dates-after-metadata-removal",
+  "title": "Why photo file dates remain after metadata removal",
+  "description": "Understand Date taken, Date modified and downloaded-file timestamps, then verify the exact cleaned photo without confusing file properties with embedded metadata.",
+  "audience": "People checking a cleaned photo before sharing",
+  "readTime": "6 min",
+  "datePublished": "2026-09-29",
+  "dateModified": "2026-09-29",
+  "toolSlug": "verify-clean-photo",
+  "toolLabel": "Check the exported photo",
+  "sections": [
+    {
+      "heading": "A file date is not automatically a surviving EXIF date",
+      "paragraphs": [
+        "A cleaned photo can still show a creation or modification date in a file manager. That alone does not prove that its original capture timestamp survived. File-system properties describe a stored file; embedded fields such as EXIF DateTimeOriginal describe information inside the image. Check which field you are looking at before deciding that a privacy clean failed.",
+        "The distinction matters when you download a new copy. You may see today beside the exported file while the original photo was taken years earlier. Conversely, an image can retain an embedded capture time even when its file-system date has changed. Neither of those dates, by itself, answers whether GPS or other private fields remain."
+      ]
+    },
+    {
+      "heading": "Identify the three places a date can come from",
+      "paragraphs": [
+        "First, look for embedded capture and editing fields. ExifTool documents DateTimeOriginal and ModifyDate in its EXIF tag reference. These are fields that metadata tools can inspect within a supported image. A label such as Date taken in a photo application often refers to capture information, but applications can also derive or store their own dates.",
+        "Second, distinguish file properties maintained by the operating system from image tags. ExifTool lists FileModifyDate and FileCreateDate separately in its Extra Tags reference. Third, consider the receiving application: an album can have an upload time, an imported date or manually assigned information that is not the same thing as an embedded field in the downloaded picture. Ask where a displayed date comes from instead of assuming one universal photo date."
+      ]
+    },
+    {
+      "heading": "Compare an original and a derivative deliberately",
+      "paragraphs": [
+        "Keep the original in a private folder and make a separate sharing copy. Note the original capture date if your viewer reports one, then clean the derivative and download it. Close the first result or clear the tool selection before opening the exported file. This small separation prevents a common comparison error: inspecting the original again because both files look identical.",
+        "Run the exact derivative through Photo Privacy Lab and review supported timestamp findings alongside GPS, owner, device and other metadata categories. Then inspect its ordinary file properties separately. Write down the label and location of any date that still concerns you, for example Date modified in the Downloads folder, rather than recording only that a date remains."
+      ],
+      "checklist": [
+        "Select the exported copy, not the original or an old preview.",
+        "Identify whether the date is inside the image or in its storage/application context.",
+        "Review all reported private categories, not timestamps alone."
+      ]
+    },
+    {
+      "heading": "What a website can learn from a selected file",
+      "paragraphs": [
+        "MDN documents the browser File.lastModified property as the last modification time of a selected file. It also explains that an unknown modification time can be represented by the current time. A website therefore does not have to find an EXIF date to obtain a file timestamp after you select a file. That capability is separate from whether the website sends it anywhere.",
+        "Photo Privacy Lab keeps selected file bytes and extracted metadata in the browser, as its project contract describes. A different destination has its own handling and privacy practices. Metadata removal cannot promise that the recipient will have no record of when a file was uploaded, downloaded or received. Decide whether the sharing context itself is appropriate."
+      ]
+    },
+    {
+      "heading": "Preserve useful originals without disclosing them",
+      "paragraphs": [
+        "If capture dates help you organise a private archive, preserve that archive and share only the derivative. Do not rewrite original dates merely to make two file-manager columns agree. Changing the displayed date can obscure your own records without addressing an embedded location, a visible address or a revealing caption.",
+        "For an evidentiary or professional workflow, follow the record-retention requirements that apply to it before altering source material. This guide explains a privacy check, not a method for certifying authenticity or proving when a photograph was taken. A missing timestamp cannot establish that a picture is anonymous or unaltered."
+      ]
+    },
+    {
+      "heading": "Finish with the exact attachment",
+      "paragraphs": [
+        "Open the final image, inspect the visible pixels and rescan it after any additional edit or export. Review its filename and the destination caption too. A neutral export may still show a clock, an appointment letter or another date inside the picture itself. Those details need a visual decision, not an EXIF setting.",
+        "The useful completion criterion is specific: the exported JPEG, PNG or static WebP has been checked for supported hidden-data categories, visually reviewed, and chosen intentionally for this audience. Photo Privacy Lab does not erase file-system history, account activity or every possible record outside the image."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "ExifTool: EXIF capture and editing tags",
+      "href": "https://exiftool.org/TagNames/EXIF.html"
+    },
+    {
+      "label": "ExifTool: Extra Tags and file-system timestamps",
+      "href": "https://exiftool.org/TagNames/Extra.html"
+    },
+    {
+      "label": "MDN: File.lastModified",
+      "href": "https://developer.mozilla.org/en-US/docs/Web/API/File/lastModified"
+    }
+  ]
+},
+  {
   "slug": "photo-filename-privacy",
   "title": "Photo filename privacy: rename the copy before sharing",
   "description": "A photo filename can reveal a name, address or project even after metadata cleaning. Check the filename, archive entries and exact exported image before sharing.",
