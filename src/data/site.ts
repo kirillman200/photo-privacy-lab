@@ -173,6 +173,74 @@ export interface GuidePage {
 
 export const guides: GuidePage[] = [
   {
+  "slug": "icc-colour-profile-photo-privacy",
+  "title": "Why a cleaned photo can still have an ICC colour profile",
+  "description": "Understand why Photo Privacy Lab preserves colour profiles, what that does and does not prove about privacy, and how to check the exported image.",
+  "audience": "Photo sharing",
+  "readTime": "5 min",
+  "datePublished": "2026-10-06",
+  "dateModified": "2026-10-06",
+  "toolSlug": "verify-clean-photo",
+  "toolLabel": "Verify the exported photo",
+  "sections": [
+    {
+      "heading": "A colour profile is different from a location tag",
+      "paragraphs": [
+        "An ICC colour profile can remain after privacy cleaning because it helps software interpret the image colours. Its presence alone does not mean that GPS coordinates or camera-owner fields survived. Read the category and the cleaner’s stated behaviour instead of treating every remaining metadata item as the same kind of information.",
+        "The International Color Consortium describes profiles as part of colour management between devices and colour spaces. That is a different job from an EXIF field recording where a photograph was taken. Removing a profile can affect appearance in a colour-managed workflow, so deleting every non-pixel byte is not always the result you want."
+      ]
+    },
+    {
+      "heading": "What Photo Privacy Lab preserves",
+      "paragraphs": [
+        "Photo Privacy Lab’s JPEG Privacy Clean removes supported privacy-bearing metadata segments while preserving compressed image data and ICC profiles. When orientation is required, it can also write a minimal orientation field. A report showing preserved technical information is therefore compatible with the documented cleaning operation.",
+        "The scanner also recognises colour-profile containers in supported PNG and static WebP files. Recognition means that it found a profile container; it is not a detailed audit of every internal profile tag. The interface does not certify that arbitrary metadata inside a custom profile is harmless. Keep that distinction when assessing an image from an unfamiliar source."
+      ]
+    },
+    {
+      "heading": "Compare colour without changing everything at once",
+      "paragraphs": [
+        "Keep the original privately, make one cleaned copy, and open both in the same viewer on the same display. Compare a few recognisable areas, such as neutral surfaces, skin tones where present and strongly coloured objects. This is a practical visual comparison, not a calibrated colour measurement or a guarantee about another person’s screen.",
+        "If the copies look different, record which operation produced the derivative. Privacy Clean and Full Flatten are different paths. Full Flatten creates a fresh rendered export and can change colour handling, compression and file size. Moving between applications at the same time can introduce another variable, making it harder to identify what changed."
+      ]
+    },
+    {
+      "heading": "Do not confuse removing a profile with converting colours",
+      "paragraphs": [
+        "A colour conversion and deleting a profile are different operations. A colour-managed conversion interprets source values in a defined workflow; simply discarding the profile does not establish that those values have been converted to the intended output colour space. Do not relabel an image as sRGB solely because its original profile disappeared.",
+        "If accurate colour is essential for a client, catalogue or print deliverable, use the agreed colour-managed production workflow and keep its requirements with the file. Photo Privacy Lab is a privacy inspection and cleaning tool, not a proofing system. A quick side-by-side check cannot certify a print match or replace an agreed output specification."
+      ]
+    },
+    {
+      "heading": "Finish with a privacy check of the exact copy",
+      "paragraphs": [
+        "Rescan the actual exported JPEG, PNG or static WebP. Review GPS, owner, device, timestamp and other supported findings separately from the ICC result. Then inspect the visible image for addresses, reflections, screens and other details that metadata cleaning cannot remove. Give the derivative a suitable filename and choose it deliberately when attaching it.",
+        "If your threat model requires auditing every byte of a custom profile, this tool’s presence check is insufficient. Preserve the original, use appropriate specialist review and do not describe a technical-profile finding as a privacy certificate. For ordinary sharing, the useful conclusion is narrower: the supported categories were checked, and the retained technical data matches the operation you chose."
+      ],
+      "checklist": [
+        "Inspect the downloaded derivative rather than the original.",
+        "Read preserved technical categories separately from private findings.",
+        "Check appearance in a consistent viewer.",
+        "Review visible content, filename and intended audience."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "International Color Consortium: introduction to profile-based colour management",
+      "href": "https://preview.color.org/getting-started/"
+    },
+    {
+      "label": "Photo Privacy Lab: cleaning methodology",
+      "href": "https://exif.utilitas.app/methodology/"
+    },
+    {
+      "label": "Photo Privacy Lab: limitations",
+      "href": "https://exif.utilitas.app/limitations/"
+    }
+  ]
+},
+  {
   "slug": "photo-file-dates-after-metadata-removal",
   "title": "Why photo file dates remain after metadata removal",
   "description": "Understand Date taken, Date modified and downloaded-file timestamps, then verify the exact cleaned photo without confusing file properties with embedded metadata.",
