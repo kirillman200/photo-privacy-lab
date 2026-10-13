@@ -158,6 +158,7 @@ export const tools: ToolPage[] = [
 ];
 
 export interface GuidePage {
+  image?: { src: string; alt: string; width: number; height: number };
   slug: string;
   title: string;
   description: string;
@@ -172,6 +173,81 @@ export interface GuidePage {
 }
 
 export const guides: GuidePage[] = [
+  {
+  "slug": "qr-code-photo-privacy",
+  "title": "QR codes in photos: why partial covering is not enough",
+  "description": "Treat visible QR codes as readable data. Cover the whole code, check nearby identifiers and inspect the exported photo before sharing.",
+  "audience": "People sharing tickets, labels and screenshots",
+  "readTime": "5 min",
+  "datePublished": "2026-10-13",
+  "dateModified": "2026-10-13",
+  "toolSlug": "screenshot-redactor",
+  "toolLabel": "Open the manual redactor",
+  "sections": [
+    {
+      "heading": "A code in the picture is separate from metadata",
+      "paragraphs": [
+        "Removing GPS or EXIF data does not remove a QR code printed inside a photograph. The code is part of the visible pixels. If you do not want recipients to read it, leave it out of the frame or cover the complete code in a flattened sharing copy. Inspect the rest of the ticket, label or screenshot too: the same information may appear as ordinary text.",
+        "Photo Privacy Lab checks supported hidden metadata and offers manual solid redaction. It does not detect QR codes automatically or tell you what a code grants access to. A clean metadata report therefore says nothing about whether a visible code contains a private link, booking reference, contact details or some other information. Decide what may be shared before treating the file as ready."
+      ]
+    },
+    {
+      "heading": "Do not rely on a small scratch or a blurred corner",
+      "paragraphs": [
+        "DENSO WAVE, the developer of QR Code, explains that error correction can restore data when a symbol is dirty or damaged. That makes partial obstruction a poor privacy method. A sticker across one corner, a scribble or a small crop is not reliable evidence that the underlying information can no longer be recovered.",
+        "Do not translate an advertised error-correction percentage into a safe percentage of image area to cover. This guide does not offer a decoding threshold. The practical approach is to remove the complete unwanted symbol, including its surrounding margin, instead of trying to discover the smallest change that makes one scanner fail. See the DENSO WAVE source below for the technical distinction."
+      ]
+    },
+    {
+      "heading": "Review the whole object, including repeated identifiers",
+      "paragraphs": [
+        "Work from a private original and make a separate sharing copy. Look for a second code, a barcode, a printed reference, a name, a URL and information along the edge of the image. A packing label, for example, can repeat an identifier in both bars and text. Covering one representation while leaving another visible does not accomplish the intended removal.",
+        "Ask what the reader actually needs to see. If you are showing a damaged parcel, a close image of the damage may be enough. If you are asking about a ticket layout, a fabricated sample may communicate the question without exposing a real ticket. These are suggested workflows, not claims about the information encoded by any particular retailer or ticket provider."
+      ]
+    },
+    {
+      "heading": "Flatten the mask and inspect the exported file",
+      "paragraphs": [
+        "In the manual redactor, use a fully opaque solid rectangle that extends beyond the unwanted code. Export the flattened image and open the downloaded copy independently. Check the covered area at full size and verify that you selected the derivative, not the original or a preview with an editable overlay.",
+        "A failed scan by one phone is only one observation; it is not proof that no reader can recover a partially visible code. The stronger visible check is that the entire unwanted symbol and any duplicate text are absent from the exported pixels. Also check that the mask did not miss a narrow strip at the image boundary.",
+        "Run the exported JPEG, PNG or static WebP through the metadata checker separately. Redaction and metadata cleaning solve different parts of the task. Supported-format and size limits still apply, and the tool is not a PDF or mobile-wallet ticket cleaner."
+      ]
+    },
+    {
+      "heading": "Keep the usable original out of the sharing package",
+      "paragraphs": [
+        "If a code is needed for entry, collection or another legitimate use, preserve its original privately. Do not assume the edited image will still work for that purpose. Share the minimum copy needed for the conversation and avoid attaching an archive that also contains the unedited file.",
+        "For an already exposed sensitive code, removing a public image cannot establish that nobody copied it. Use the issuer’s official support route to ask whether replacement or another action is appropriate. Research checked October 13, 2026. This method addresses visible disclosure; it does not certify that a ticket, link or account is secure."
+      ],
+      "checklist": [
+        "Remove the entire unwanted symbol and its margin.",
+        "Review repeated text and other codes.",
+        "Open and inspect the exact flattened export.",
+        "Check metadata separately and keep the original private."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "DENSO WAVE: QR Code error correction",
+      "href": "https://www.qrcode.com/en/about/error_correction.html"
+    },
+    {
+      "label": "Photo Privacy Lab: manual screenshot redaction workflow",
+      "href": "https://exif.utilitas.app/guides/redact-a-screenshot-safely/"
+    },
+    {
+      "label": "Photo Privacy Lab: supported formats and limits",
+      "href": "https://exif.utilitas.app/supported-formats/"
+    }
+  ],
+  "image": {
+    "src": "/images/articles/qr-code-photo-privacy.png",
+    "alt": "Illustrative ticket code before and after complete opaque covering",
+    "width": 1730,
+    "height": 909
+  }
+},
   {
   "slug": "icc-colour-profile-photo-privacy",
   "title": "Why a cleaned photo can still have an ICC colour profile",
