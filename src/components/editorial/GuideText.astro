@@ -1,0 +1,10 @@
+---
+interface Props { text: string }
+const { text } = Astro.props;
+// Render only explicit local/HTTPS links. All labels and text stay escaped.
+const parts = text.split(/(\[[^\]]+\]\((?:https:\/\/|\/)[^\s)]+\))/g).map((value) => {
+  const link = value.match(/^\[([^\]]+)\]\(((?:https:\/\/|\/)[^\s)]+)\)$/);
+  return link ? { label: link[1], href: link[2] } : { label: value };
+});
+---
+{parts.map((part) => part.href ? <a href={part.href}>{part.label}</a> : part.label)}

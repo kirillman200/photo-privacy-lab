@@ -9,6 +9,37 @@ const dist = join(process.cwd(), 'dist');
 const fileFor = (path: string) => path === '/' ? join(dist, 'index.html') : join(dist, path, 'index.html');
 
 describe('built public site contract', () => {
+  it('renders the HEIC workflow as a supported-copy guide with working metadata and links', () => {
+    const path = '/guides/heic-to-jpeg-before-privacy-check/';
+    const html = readFileSync(fileFor(path), 'utf8');
+    expect(html).toContain('<title>HEIC to JPEG: export, inspect and verify | Photo Privacy Lab</title>');
+    expect(html).toContain('<h1>HEIC to JPEG before a privacy check: export, inspect and verify</h1>');
+    expect(html.match(/<ol>/g)).toHaveLength(2);
+    for (const target of ['/supported-formats/', '/verify-clean-photo/', '/methodology/', '/limitations/']) {
+      expect(html).toContain(`href="${target}"`);
+      expect(existsSync(fileFor(target))).toBe(true);
+    }
+    expect(html).not.toContain('[supported image formats]');
+    expect(html).toContain('not HEIC or video');
+    expect(html).toContain('verification is unfinished');
+    expect(html).toContain('not the original or an intermediate copy');
+    const image = '/images/articles/heic-to-jpeg-before-privacy-check.png';
+    expect(existsSync(join(dist, image))).toBe(true);
+    expect(html).toContain(`src="${image}"`);
+    for (const name of ['og:image', 'twitter:image']) {
+      expect(html).toContain(`${name}" content="${SITE_URL}${image}"`);
+    }
+    expect(readFileSync(fileFor('/guides/'), 'utf8')).toContain(path);
+    expect(readFileSync(join(dist, 'sitemap.xml'), 'utf8')).toContain(`<loc>${SITE_URL}${path}</loc><lastmod>2026-10-20</lastmod>`);
+    // The reviewed draft must not invent a publication event.
+    const schemas = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].flatMap((match) => JSON.parse(match[1]!));
+    const article = schemas.find((schema) => schema['@type'] === 'Article');
+    expect(article.headline).toBe('HEIC to JPEG before a privacy check: export, inspect and verify');
+    expect(article.image).toBe(`${SITE_URL}${image}`);
+    expect(article.datePublished).toBeUndefined();
+    expect(article.dateModified).toBe('2026-10-20');
+  });
+
   it('builds every canonical route with unique metadata and one visible H1', () => {
     const titles = new Set<string>();
     const descriptions = new Set<string>();

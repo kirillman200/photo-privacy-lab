@@ -158,6 +158,9 @@ export const tools: ToolPage[] = [
 ];
 
 export interface GuidePage {
+  seoTitle?: string;
+  socialTitle?: string;
+  socialDescription?: string;
   image?: { src: string; alt: string; width: number; height: number; caption: string };
   slug: string;
   title: string;
@@ -173,6 +176,107 @@ export interface GuidePage {
 }
 
 export const guides: GuidePage[] = [
+  {
+  "slug": "heic-to-jpeg-before-privacy-check",
+  "title": "HEIC to JPEG before a privacy check: export, inspect and verify",
+  "seoTitle": "HEIC to JPEG: export, inspect and verify",
+  "socialTitle": "HEIC to JPEG before a privacy check",
+  "socialDescription": "Keep your original separate. Export a supported still image, review what changed, and verify the final sharing copy.",
+  "description": "Export a HEIC photo as JPEG on Mac, keep the original private, inspect the result, then clean and verify the exact copy you plan to share.",
+  "audience": "Mac users preparing a sharing copy",
+  "readTime": "6 min",
+  "dateModified": "2026-10-20",
+  "toolSlug": "verify-clean-photo",
+  "toolLabel": "Verify your final sharing copy",
+  "image": {
+    "src": "/images/articles/heic-to-jpeg-before-privacy-check.png",
+    "alt": "A private HEIC original stays separate while a JPEG copy moves through visual inspection, cleaning and verification.",
+    "width": 1774,
+    "height": 887,
+    "caption": "Conceptual export and verification workflow. Original AI-generated illustration created with Codex image_gen for this guide on October 20, 2026; not an operating-system screenshot."
+  },
+  "sections": [
+    {
+      "heading": "Start with a supported sharing copy",
+      "paragraphs": [
+        "If your photo is HEIC, export a separate JPEG before using Photo Privacy Lab. The tool accepts JPEG, PNG and static WebP, up to 10 MB per file, but not HEIC or video. Check the [supported image formats](/supported-formats/) before starting.",
+        "Treat conversion as a compatibility step, not a privacy result. Preserve the private original, inspect the exported picture, clean the supported copy and verify the exact file you intend to send. A different filename or format is not evidence that hidden information has been removed."
+      ]
+    },
+    {
+      "heading": "Keep the original out of the sharing workflow",
+      "paragraphs": [
+        "Before exporting, decide where the private original belongs and where the sharing copy will go. Use separate folders or another clear separation that you can recognise when attaching a file. Avoid names that disclose something you were trying to hide.",
+        "For example, keep the HEIC in your private photo library and export the working JPEG into a folder used only for the current handoff. Do not attach that whole folder by habit. The point is to make choosing the wrong file harder, not to treat a folder name as a security control.",
+        "Work on the copy rather than replacing your only original. This gives you a reference for checking the result and a way to start again if the exported image is unsuitable."
+      ]
+    },
+    {
+      "heading": "Export a JPEG with Preview",
+      "paragraphs": [
+        "Apple's [Preview conversion instructions](https://support.apple.com/guide/preview/convert-image-file-types-prvw1012/mac) describe this route:",
+        "1. Open the HEIC file in Preview on your Mac.\n2. Choose File > Export.\n3. In Format, select JPEG and adjust quality if needed.\n4. Give the copy a distinct name and destination, then choose Save.",
+        "Open the saved file from that destination before continuing. Do not rely on the image that remains open in the original window. If a label differs on your Mac, use the version selector in Apple's guide rather than guessing from an old screenshot."
+      ]
+    },
+    {
+      "heading": "Or export from Photos in a selected format",
+      "paragraphs": [
+        "For a picture in Photos, Apple's [Photos export guide](https://support.apple.com/guide/photos/export-photos-videos-and-slideshows-pht6e157c5f/mac) documents a selected-format export:",
+        "1. Select the photo, then choose File > Export > Export [number] Photos.\n2. Set Photo Kind to JPEG. Expand the options if you need to choose quality, colour profile or size.\n3. Choose the naming options you need, click Export, choose a destination and click Export again.",
+        "For this workflow, use the selected-format route, not Export Unmodified Original. The latter preserves the original format rather than making the JPEG you need here. Apple also documents exporting a Live Photo as a still image. This guide checks that still derivative only, not its motion or audio."
+      ]
+    },
+    {
+      "heading": "Inspect the exported picture before cleaning",
+      "paragraphs": [
+        "Open the JPEG and compare it with your private reference. Look at the whole image, then zoom in on details that matter to its purpose. Is the picture upright? Is the crop right? Is necessary text readable? Are colours and fine details acceptable for the intended use?",
+        "If the result is wrong, return to the original and try a different export setting. Check the new copy's actual file size against the 10 MB limit. Do not assume it fits because the original did. If you reduce dimensions or quality, inspect that result again rather than accepting a smaller file on size alone.",
+        "Keep visual inspection separate from metadata inspection. A picture can look right while still needing a hidden-data check, and a clean report does not judge whether the scene itself reveals too much."
+      ]
+    },
+    {
+      "heading": "Clean the supported copy, then verify the output",
+      "paragraphs": [
+        "Export settings are not a substitute for examining the resulting file. Start with the JPEG you actually saved, review the findings and create a cleaned sharing copy when needed. Photo Privacy Lab's [technical methodology](/methodology/) describes the supported metadata checks and cleaning boundary.",
+        "After downloading the result, open that exact file in [Verify a Clean Photo](/verify-clean-photo/). Review the reported categories, including location, time, device, author, comments and embedded previews. Do not rescan the private HEIC or an earlier JPEG and treat that as proof about the final download.",
+        "Use a simple stopping rule: if the file you plan to attach is not the one you checked, verification is unfinished. A later edit or export should send you back to the final-copy check. Keep intermediate exports out of the attachment selection so they are not mistaken for the checked result."
+      ]
+    },
+    {
+      "heading": "Review visible clues and make the handoff deliberate",
+      "paragraphs": [
+        "Read the site's [limitations](/limitations/) alongside the report. Hidden-data checks do not assess visible clues such as faces, signs or reflections, and they do not certify that a picture is anonymous. Decide whether to crop or redact sensitive content, or whether not sharing is the better choice. Inspect and verify any newly edited output.",
+        "When ready, select only the checked derivative for the handoff. Do not include the private original, extra exports or unrelated files just because they are beside it. If someone needs the original instead, that is a different sharing decision and this JPEG check does not cover it."
+      ]
+    },
+    {
+      "heading": "Before you share: final checklist",
+      "paragraphs": [
+        "Ready for the last step? [Verify your final sharing copy](/verify-clean-photo/)."
+      ],
+      "checklist": [
+        "The original remains separate and private.",
+        "The selected copy is JPEG, PNG or static WebP and within 10 MB.",
+        "The exported picture has been visually inspected.",
+        "Supported metadata findings have been reviewed and cleaned as needed.",
+        "The final downloaded or edited file has been independently checked.",
+        "Visible content and context have been reviewed by a person.",
+        "The attachment is the verified derivative, not the original or an intermediate copy."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "href": "https://support.apple.com/guide/preview/convert-image-file-types-prvw1012/mac",
+      "label": "Apple: Convert image file types using Preview on Mac"
+    },
+    {
+      "href": "https://support.apple.com/guide/photos/export-photos-videos-and-slideshows-pht6e157c5f/mac",
+      "label": "Apple: Export photos in a selected format on Mac"
+    }
+  ]
+},
   {
   "slug": "qr-code-photo-privacy",
   "title": "QR codes in photos: why partial covering is not enough",
