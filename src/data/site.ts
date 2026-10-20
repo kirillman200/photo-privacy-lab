@@ -158,7 +158,7 @@ export const tools: ToolPage[] = [
 ];
 
 export interface GuidePage {
-  image?: { src: string; alt: string; width: number; height: number };
+  image?: { src: string; alt: string; width: number; height: number; caption: string };
   slug: string;
   title: string;
   description: string;
@@ -243,6 +243,7 @@ export const guides: GuidePage[] = [
   ],
   "image": {
     "src": "/images/articles/qr-code-photo-privacy.png",
+    "caption": "Original AI-generated editorial illustration, October 13, 2026. Illustrative code, not a real ticket.",
     "alt": "Illustrative ticket code before and after complete opaque covering",
     "width": 1730,
     "height": 909
