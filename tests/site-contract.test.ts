@@ -30,14 +30,15 @@ describe('built public site contract', () => {
       expect(html).toContain(`${name}" content="${SITE_URL}${image}"`);
     }
     expect(readFileSync(fileFor('/guides/'), 'utf8')).toContain(path);
-    expect(readFileSync(join(dist, 'sitemap.xml'), 'utf8')).toContain(`<loc>${SITE_URL}${path}</loc><lastmod>2026-10-20</lastmod>`);
-    // The reviewed draft must not invent a publication event.
+    expect(readFileSync(join(dist, 'sitemap.xml'), 'utf8')).toContain(`<loc>${SITE_URL}${path}</loc><lastmod>2026-10-22</lastmod>`);
+    // Release metadata must agree across visible dates, schema and sitemap.
     const schemas = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].flatMap((match) => JSON.parse(match[1]!));
     const article = schemas.find((schema) => schema['@type'] === 'Article');
     expect(article.headline).toBe('HEIC to JPEG before a privacy check: export, inspect and verify');
     expect(article.image).toBe(`${SITE_URL}${image}`);
-    expect(article.datePublished).toBeUndefined();
-    expect(article.dateModified).toBe('2026-10-20');
+    expect(article.datePublished).toBe('2026-10-22');
+    expect(html).toContain('<time datetime="2026-10-22">2026-10-22</time>');
+    expect(article.dateModified).toBe('2026-10-22');
   });
 
   it('builds every canonical route with unique metadata and one visible H1', () => {

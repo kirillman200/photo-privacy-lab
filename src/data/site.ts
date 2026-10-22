@@ -185,7 +185,8 @@ export const guides: GuidePage[] = [
   "description": "Export a HEIC photo as JPEG on Mac, keep the original private, inspect the result, then clean and verify the exact copy you plan to share.",
   "audience": "Mac users preparing a sharing copy",
   "readTime": "6 min",
-  "dateModified": "2026-10-20",
+  "datePublished": "2026-10-22",
+  "dateModified": "2026-10-22",
   "toolSlug": "verify-clean-photo",
   "toolLabel": "Verify your final sharing copy",
   "image": {
