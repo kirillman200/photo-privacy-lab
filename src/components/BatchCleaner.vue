@@ -93,7 +93,15 @@ const start = async () => {
       const zip = new JSZip();
       const report: Array<{ file: string; status: string; note: string }> = [];
       for (const item of items.value) {
-        if (item.state === 'done' && item.output && item.outputName) zip.file(item.outputName, item.output);
+        if (item.state === 'done' && item.output && item.outputName) {
+          const extensionStart = item.outputName.lastIndexOf('.');
+          const stem = item.outputName.slice(0, extensionStart);
+          const extension = item.outputName.slice(extensionStart);
+          let outputName = item.outputName;
+          let suffix = 2;
+          while (zip.file(outputName)) outputName = `${stem}-${suffix++}${extension}`;
+          zip.file(outputName, item.output);
+        }
         report.push({ file: item.file.name, status: item.state, note: item.message });
       }
       zip.file('photo-privacy-verification.json', JSON.stringify({ generatedAt: new Date().toISOString(), files: report, privateValuesIncluded: false }, null, 2));
