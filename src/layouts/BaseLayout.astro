@@ -102,6 +102,10 @@ const pageSchema = schema ? [...siteSchema, ...(Array.isArray(schema) ? schema :
           <a class="brand footer-brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i></span><span><strong>Photo Privacy</strong><small>LAB</small></span></a>
           <p>Check hidden risks, clean the file, redact visible information, and verify the exact copy you will share.</p>
           <div class="footer-local"><span></span> Selected image files stay in your browser</div>
+          <a class="preferred-source-button" href="https://www.google.com/preferences/source?q=exif.utilitas.app" target="_blank" rel="noopener noreferrer" aria-label="Add as preferred source on Google: Photo Privacy Lab (opens in a new tab)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false"><path d="m12 3 2.8 5.7 6.3.9-4.5 4.4 1.1 6.2-5.7-3-5.7 3 1.1-6.2L3.2 9.6l6-.9L12 3Z" /></svg>
+        <span class="preferred-source-copy"><strong>Add as preferred source</strong><small>on Google</small></span>
+      </a>
         </div>
         <div><h2>Tools</h2>{navigation.slice(0, 3).map((item) => <a href={item.href}>{item.label}</a>)}<a href="/photo-metadata-viewer/">Metadata viewer</a><a href="/batch-metadata-remover/">Batch cleaner</a><a href="/verify-clean-photo/">Verify a clean copy</a></div>
         <div><h2>Learn</h2><a href="/guides/">All guides</a><a href="/methodology/">Methodology</a><a href="/supported-formats/">Supported formats</a><a href="/limitations/">Limitations</a></div>
