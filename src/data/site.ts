@@ -177,6 +177,118 @@ export interface GuidePage {
 
 export const guides: GuidePage[] = [
   {
+  "slug": "stop-sharing-google-photos-album",
+  "title": "Stop sharing a Google Photos album: links, members and saved copies",
+  "seoTitle": "Stop sharing a Google Photos album: links and saved copies",
+  "description": "Close access to a Google Photos album, distinguish links from members, and understand why stopping sharing cannot recall saved or downloaded copies.",
+  "audience": "Google Photos album owners",
+  "readTime": "5 min",
+  "datePublished": "2026-11-06",
+  "dateModified": "2026-11-06",
+  "toolSlug": "verify-clean-photo",
+  "toolLabel": "Verify a future sharing copy",
+  "sections": [
+    {
+      "heading": "Stop album access and understand what remains",
+      "paragraphs": [
+        "To stop sharing an album you own, remove all members and turn off Link sharing. Downloads and copies already made are not deleted. Those are separate problems: closing access to the album is not recalling a picture. See Google's [stop-sharing instructions](https://support.google.com/photos/answer/6280921?hl=en&co=GENIE.Platform%3DDesktop)."
+      ]
+    },
+    {
+      "heading": "Choose the result you need",
+      "paragraphs": [
+        "Use this decision aid before changing settings:",
+        "Google's [shared-album controls explanation](https://support.google.com/photos/answer/9789702?hl=en) distinguishes these controls. A link can be forwarded, and removing a member while leaving link access enabled lets someone with the original link still view the album. Do not switch sharing back on if your goal is to stop access."
+      ],
+      "checklist": [
+        "Stop everyone's access: remove all members and leave Link sharing off. Remaining limitation: existing copies survive.",
+        "Keep selected members: remove unwanted members and disable link access. Remaining limitation: people with access can add others, so review membership again.",
+        "Stop additions only: turn off Collaborate. Remaining limitation: this does not withdraw viewing access.",
+        "Replace a circulated link while continuing to share: switch Link sharing off, then on to generate a new URL. Remaining limitation: you are still sharing, not making the album private."
+      ]
+    },
+    {
+      "heading": "Pause before removing people",
+      "paragraphs": [
+        "Only the owner can change link sharing or remove members. Removing someone removes their album photos and comments; making the album private removes comments. Review contributions before acting. These consequences are described in Google's [album privacy guidance](https://support.google.com/photos/answer/9789702?hl=en).",
+        "Recommended preparation: confirm that you are in the intended account and album. Decide whether any contributed material needs discussion with its owner before removal. Avoid making irreversible sharing decisions from an unfamiliar account or an album with a similar name."
+      ]
+    },
+    {
+      "heading": "Close link access and remove members",
+      "paragraphs": [
+        "These are documented instructions, not results from a signed-in product test. Google uses different menu wording by platform."
+      ]
+    },
+    {
+      "heading": "Android app",
+      "paragraphs": [
+        "1. Open the album, then More > Sharing.\n2. Turn Link sharing off.\n3. Find each member and use their More > Remove person. Repeat for all members to stop sharing entirely.",
+        "Source: [Google Photos Android instructions](https://support.google.com/photos/answer/6280921?hl=en&co=GENIE.Platform%3DAndroid)."
+      ]
+    },
+    {
+      "heading": "iPhone or iPad app",
+      "paragraphs": [
+        "1. Open the album, then More > Sharing settings > Manage access.\n2. Turn Link sharing off.\n3. Find each member and use their More > Remove person. Repeat for all members to stop sharing entirely.",
+        "Source: [Google Photos iPhone and iPad instructions](https://support.google.com/photos/answer/6280921?hl=en&co=GENIE.Platform%3DiOS)."
+      ]
+    },
+    {
+      "heading": "Computer: member removal",
+      "paragraphs": [
+        "1. Open the album, then More > Options.\n2. Find a member and choose their More > Remove person. Repeat as needed.",
+        "Google's [computer help](https://support.google.com/photos/answer/6280921?hl=en&co=GENIE.Platform%3DDesktop) documents member removal there, but its link-toggle instructions are labelled for the mobile app. Use the appropriate mobile steps above to complete that part rather than assuming the menus are identical."
+      ]
+    },
+    {
+      "heading": "Check the change without promising recall",
+      "paragraphs": [
+        "Recommended check: reopen the album's access settings. Confirm Link sharing is off and the membership list matches your intended result. For a complete stop, check both conditions, not just one.",
+        "If you retained the old URL, optionally try it in a signed-out browser session. Treat this only as a limited check of that link in that session. It is not an audit of every account, another sharing route or a recipient's device. Do not send the link to someone new merely to test it."
+      ]
+    },
+    {
+      "heading": "Saved copies and later edits are different",
+      "paragraphs": [
+        "Google explains that [saving shared photos creates a library copy](https://support.google.com/photos/answer/6131416?hl=en&co=GENIE.Platform%3DDesktop). Later edits to the original do not update that saved copy. Google also warns that an old version may temporarily remain visible through an existing shared link after an edit. Editing an already shared original is therefore not a reliable way to recall or immediately redact what recipients see.",
+        "Removing a photo from an album does not delete it from your own Google Photos library, either. Album membership, library storage and another person's saved file are different controls. Keep that distinction in mind when deciding what to do next.",
+        "Recommended follow-up: if another person has a sensitive copy, discuss deletion directly where appropriate. Do not describe that request as remotely enforced deletion or a verified recall."
+      ]
+    },
+    {
+      "heading": "Prepare a future sharing copy only if needed",
+      "paragraphs": [
+        "Closing the album does not require a local metadata cleaner. If you later choose to share a new file, treat that as a separate task:",
+        "1. Review the visible picture for faces, addresses, school names, reflections and other clues. For family pictures, use the [parents' photo-sharing checklist](/guides/photo-sharing-checklist-for-parents/).\n2. Inspect a supported JPEG, PNG or static WebP copy for hidden metadata. Photo Privacy Lab accepts up to 10 MB per file; it does not accept HEIC, video or documents.\n3. If you clean or manually redact a copy, [verify the exact exported file](/verify-clean-photo/) before sharing it.",
+        "Selected image files and extracted metadata stay in your browser. This utility cannot inspect or change Google account permissions, disable an album or delete remote copies. A metadata check also cannot certify that a picture is safe to share. Read the [tool's limitations](/limitations/) and choose the audience separately."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "href": "https://support.google.com/photos/answer/6280921?hl=en&co=GENIE.Platform%3DDesktop",
+      "label": "Google Photos Help: stop sharing and manage settings on computer"
+    },
+    {
+      "href": "https://support.google.com/photos/answer/6280921?hl=en&co=GENIE.Platform%3DAndroid",
+      "label": "Google Photos Help: Android sharing settings"
+    },
+    {
+      "href": "https://support.google.com/photos/answer/6280921?hl=en&co=GENIE.Platform%3DiOS",
+      "label": "Google Photos Help: iPhone and iPad sharing settings"
+    },
+    {
+      "href": "https://support.google.com/photos/answer/9789702?hl=en",
+      "label": "Google Photos Help: shared album privacy controls"
+    },
+    {
+      "href": "https://support.google.com/photos/answer/6131416?hl=en&co=GENIE.Platform%3DDesktop",
+      "label": "Google Photos Help: share photos and videos"
+    }
+  ]
+},
+  {
   "slug": "heic-to-jpeg-before-privacy-check",
   "title": "HEIC to JPEG before a privacy check: export, inspect and verify",
   "seoTitle": "HEIC to JPEG: export, inspect and verify",
