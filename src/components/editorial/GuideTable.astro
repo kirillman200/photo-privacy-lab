@@ -1,0 +1,29 @@
+---
+import GuideText from './GuideText.astro';
+interface Props {
+  label: string;
+  table: { headers: string[]; rows: string[][] };
+}
+const { table, label } = Astro.props;
+---
+<div class="guide-table" role="region" aria-label={label} tabindex="0">
+  <table>
+    <thead><tr>{table.headers.map((header) => <th scope="col"><GuideText text={header} /></th>)}</tr></thead>
+    <tbody>{table.rows.map((row) => <tr>{row.map((cell, index) => index === 0 ? <th scope="row"><GuideText text={cell} /></th> : <td><GuideText text={cell} /></td>)}</tr>)}</tbody>
+  </table>
+</div>
+<style>
+  :global(.guide-prose:has(.guide-table)) { min-width: 0; }
+  .guide-table { max-width: 100%; overflow-x: auto; margin-block: 1.5rem; }
+  .guide-table:focus-visible { outline: 2px solid var(--mint-dark); outline-offset: 4px; }
+  table { width: 100%; min-width: 36rem; border-collapse: collapse; font-size: 1rem; line-height: 1.6; }
+  th, td { padding: .8rem; border: 1px solid #d4d1c8; text-align: left; vertical-align: top; }
+  thead { background: var(--mint-soft); }
+</style>
+<style>
+  .guide-table { max-width: 100%; overflow-x: auto; margin: 1.5rem 0; }
+  .guide-table:focus-visible { outline: 3px solid #16765c; outline-offset: 3px; }
+  table { width: 100%; min-width: 34rem; border-collapse: collapse; }
+  th, td { padding: 0.85rem; border: 1px solid #cedbd8; text-align: left; vertical-align: top; }
+  thead th { background: #edf5f2; }
+</style>

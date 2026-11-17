@@ -159,6 +159,7 @@ export const tools: ToolPage[] = [
 
 export interface GuidePage {
   seoTitle?: string;
+  includeSiteName?: boolean;
   socialTitle?: string;
   socialDescription?: string;
   image?: { src: string; alt: string; width: number; height: number; caption: string };
@@ -172,10 +173,122 @@ export interface GuidePage {
   toolSlug?: string;
   toolLabel?: string;
   sources?: Array<{ href: string; label: string }>;
-  sections: Array<{ heading: string; paragraphs: string[]; checklist?: string[] }>;
+  intro?: string;
+  sections: Array<{
+    heading: string;
+    paragraphs: string[];
+    checklist?: string[];
+    table?: { afterParagraph: number; headers: string[]; rows: string[][] };
+  }>;
 }
 
 export const guides: GuidePage[] = [
+  {
+  "slug": "metadata-removal-reverse-image-search",
+  "title": "Does removing metadata stop reverse image search?",
+  "seoTitle": "Does Removing Metadata Stop Reverse Image Search? No",
+  "includeSiteName": false,
+  "socialTitle": "Does Removing Metadata Stop Reverse Image Search? No",
+  "socialDescription": "A clean metadata scan and a hard-to-trace photograph are different things. Check public copies, visible clues and the exact file before sharing.",
+  "description": "Removing photo metadata hides embedded details, not the picture. Learn what reverse image search can still reveal and check your sharing copy locally.",
+  "audience": "People preparing a sharing copy",
+  "readTime": "6 min",
+  "datePublished": "2026-11-17",
+  "dateModified": "2026-11-17",
+  "toolSlug": "remove-photo-metadata",
+  "toolLabel": "Clean a sharing copy locally",
+  "intro": "No. Removing metadata does not stop reverse image search: it removes embedded information, not the visible photograph. A cleaned image can still lead to an older public copy or reveal a recognisable scene. Treat metadata cleanup, visible-clue review and your choice of sharing audience as separate decisions.",
+  "sections": [
+    {
+      "heading": "What does reverse image search use instead of metadata?",
+      "paragraphs": [
+        "An image-search service can compare visual information rather than rely on the camera details stored inside a file. [TinEye explains its image-recognition matching](https://help.tineye.com/article/233-how-does-tineye-work): it creates a fingerprint of the image and compares it with its index, without using the image's filename or metadata.",
+        "Services also answer different questions. [Google's image-search help](https://support.google.com/websearch/answer/1325808?hl=en) describes Lens results that can include objects, similar images and websites containing the same or a similar image. A visually similar mountain is different evidence from a page showing your actual photograph.",
+        "Imagine you remove the GPS and camera information from a landscape JPEG, then post it under a second account. The mountain, horizon and arrangement of clouds remain available for comparison. Removing the hidden coordinates addresses one disclosure; it leaves the recognisable composition in place."
+      ]
+    },
+    {
+      "heading": "Could a cleaned photo connect two accounts?",
+      "paragraphs": [
+        "Consider a fictional photographer, Alex, who has already posted a lake photograph on a public portfolio carrying their name. Alex now wants to reuse that photograph on an account kept separate from the portfolio.",
+        "Walk through the connection: someone gets the new post's image, searches it, and finds the old portfolio page. That page, rather than an EXIF author field in the new file, supplies the name. The result would connect the reused photograph to the portfolio; it would not by itself establish who controls the new account.",
+        "For that goal, choose a different photograph that has not already been published in identifying context. Review its visible scene too: a unique building or sign could still disclose a place. If source protection is involved, continue with the broader [photo safety checklist for journalists](/guides/photo-safety-for-journalists/) rather than treating file cleanup as the whole handoff."
+      ]
+    },
+    {
+      "heading": "Which part of the sharing risk should you change?",
+      "paragraphs": [
+        "Before editing, identify what you want to keep private. Use the same lake-photo example to separate four decisions:",
+        "If the lake location may be public but its embedded capture timestamp should stay private, metadata cleanup addresses that stored record. If the portfolio connection is the concern, deleting more EXIF fields targets the wrong layer.",
+        "For a fuller explanation of hidden fields, use [what photo metadata can reveal](/guides/what-photo-metadata-can-reveal/). Keep that inspection separate from deciding whether the photograph itself belongs in the new post."
+      ],
+      "table": {
+        "afterParagraph": 0,
+        "headers": [
+          "Risk layer",
+          "What could disclose information?",
+          "Action for the sharing copy"
+        ],
+        "rows": [
+          [
+            "Embedded data",
+            "GPS, capture details or an author field inside the file",
+            "Inspect the file, remove unnecessary private fields and rescan the export."
+          ],
+          [
+            "Visible clues",
+            "A house number, sign, reflection or distinctive scene",
+            "Review the full image and remove revealing content, or choose another photograph."
+          ],
+          [
+            "Already-public copies",
+            "Alex's named portfolio contains the same lake photograph",
+            "Avoid reusing that photograph when separation from the portfolio matters."
+          ],
+          [
+            "Sharing audience",
+            "A public post exposes the photograph beyond the intended recipients",
+            "Choose a restricted audience or a private sharing route before posting."
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Will cropping, filters or a screenshot stop matching?",
+      "paragraphs": [
+        "Treat those edits as presentation changes, not a reliable way to break a connection to an existing image. TinEye's matching explanation above specifically includes cropped, edited, resized and partially matching images. That documented capability is enough to reject cropping as a dependable privacy rule, without predicting every result from every engine.",
+        "For example, cropping Alex's sky down to a narrow strip still leaves much of the lake and shoreline. A filter changes their appearance but leaves the basic composition. Taking a screenshot makes a new file while retaining the displayed photograph.",
+        "A local byte-level example shows why a changed file is a weak test of visual change. In a synthetic JPEG fixture, Photo Privacy Lab's metadata cleaner reduced the file from 303 bytes to 102 bytes and the scanner's private findings from seven to zero. The compressed scan data remained byte-for-byte identical.",
+        "That synthetic fixture checked file structures, not whether a real photograph matched in a search engine. Use the result for its narrow lesson: successful metadata removal and changed file bytes can coexist with preserved image data."
+      ]
+    },
+    {
+      "heading": "Should you upload a private photo to check for matches?",
+      "paragraphs": [
+        "Start with the sharing decision, not an upload. Searching by a local file means supplying it to that third-party service; Google's help above also describes searching by image URL. That is a different data boundary from inspecting a selected file locally in Photo Privacy Lab.",
+        "If you want to learn the search interface, use an owned, non-sensitive image you are comfortable supplying. For Alex's already-public portfolio photograph, the public copy is a more appropriate practice subject than an unpublished picture from home. Keep the practice task separate from deciding to share the private image.",
+        "An empty result leaves discoverability unresolved. [TinEye explains that an image can be missed because its page has not yet been crawled](https://help.tineye.com/article/237-why-can-t-tineye-find-my-image-i-know-it-is-on-the-web). Do not use a no-match result as clearance to publish a sensitive photograph."
+      ]
+    },
+    {
+      "heading": "What if the identifying copy is already online?",
+      "paragraphs": [
+        "Work on the online copy, not just a replacement on your device. If Alex still controls the portfolio, Alex can remove or replace its photograph. If another site hosts the identifying copy, start with that site's removal or contact route.",
+        "[Google's image-removal guidance](https://support.google.com/websearch/answer/4628134?hl=en) separates removal from the source site from updates to search results. After a site removes or changes an image, Google provides a process to request a refresh of outdated image results. Cleaning a new local file does neither of those jobs.",
+        "In the lake scenario, removing GPS from the second upload leaves the portfolio's original page untouched. Address that original exposure directly and choose a different image for the separate account rather than depending on a cleaned duplicate."
+      ]
+    },
+    {
+      "heading": "How do you prepare the exact copy you plan to share?",
+      "paragraphs": [
+        "Use this local workflow after choosing a photograph and audience that fit your goal:",
+        "1. Open the intended JPEG, PNG or static WebP in the [local photo metadata viewer](/photo-metadata-viewer/). Inspect the selected file rather than relying on another copy's results.\n2. Read the findings, then run the metadata cleaner to create a sharing copy. Review the visible image separately, including its edges and reflections.\n3. Download the export, then [verify the clean photo](/verify-clean-photo/) by opening that exact downloaded file. Check both the metadata findings and the visible result.\n4. Attach the verified export, not the original, and confirm the post's audience before sending.",
+        "For Alex, the meaningful improvement is a different, appropriately reviewed photograph plus a verified sharing copy, not a second version of the same named portfolio image. Once you have made that choice, [remove photo metadata locally](/remove-photo-metadata/) to address the embedded-data part of the job.",
+        "Sources checked November 2026."
+      ]
+    }
+  ]
+},
   {
   "slug": "stop-sharing-google-photos-album",
   "title": "Stop sharing a Google Photos album: links, members and saved copies",
@@ -686,7 +799,7 @@ export const guides: GuidePage[] = [
     audience: 'Anyone sharing photos publicly',
     readTime: '7 min',
     sections: [
-      { heading: 'A photo is more than its visible pixels', paragraphs: ['Image formats can store structured records used by cameras, editors, newsrooms, and catalog systems. These records may describe when and where an image was captured, which device created it, who owns it, and how software handled it.', 'Metadata is not automatically harmful. Orientation and color profiles can make the picture display correctly. Privacy depends on the field, the sharing context, and what the visible image already reveals.'] },
+      { heading: 'A photo is more than its visible pixels', paragraphs: ['Image formats can store structured records used by cameras, editors, newsrooms, and catalog systems. These records may describe when and where an image was captured, which device created it, who owns it, and how software handled it.', 'Metadata is not automatically harmful. Orientation and color profiles can make the picture display correctly. Privacy depends on the field, the sharing context, and what the visible image already reveals. Cleaning those records still leaves the photograph available for visual comparison. See [whether removing metadata stops reverse image search](/guides/metadata-removal-reverse-image-search/) before reusing a public image under a different account.'] },
       { heading: 'The fields that deserve the most attention', paragraphs: ['GPS coordinates are the clearest high-risk example because they can identify a home, workplace, school, or travel location. Owner names, camera serial numbers, document identifiers, user comments, and embedded previews can also disclose information that is not visible in the main image.'], checklist: ['Exact GPS latitude and longitude', 'Camera owner or author names', 'Device serial and document identifiers', 'Comments, descriptions, and keywords', 'Embedded thumbnails or previews'] },
       { heading: 'Context changes the risk', paragraphs: ['A camera model in a landscape photo is usually a technical detail. The same model and timestamp may matter more to a journalist protecting a source or an employee sharing evidence from a restricted site.', 'Use risk labels as a prompt for judgment, not as a substitute for reviewing the purpose and audience of the share.'] },
       { heading: 'A safer sharing routine', paragraphs: ['Scan the original, remove fields that do not need to travel, flatten any visual redactions, then inspect the exported copy. Keep the original private and share only the verified derivative.'], checklist: ['Review hidden metadata', 'Inspect the visible background and reflections', 'Use solid masks for secrets', 'Verify the exact exported file'] },

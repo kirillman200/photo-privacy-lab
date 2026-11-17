@@ -5,6 +5,7 @@ import '../styles/global.css';
 interface Props {
   image?: { src: string; alt: string; width: number; height: number };
   title: string;
+  includeSiteName?: boolean;
   socialTitle?: string;
   socialDescription?: string;
   description: string;
@@ -13,9 +14,9 @@ interface Props {
   schema?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
-const { title, description, path, type = 'website', schema, image, socialTitle, socialDescription } = Astro.props;
+const { title, includeSiteName = true, description, path, type = 'website', schema, image, socialTitle, socialDescription } = Astro.props;
 const canonical = new URL(path, SITE_URL).href;
-const fullTitle = title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
+const fullTitle = !includeSiteName || title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
 const socialImage = new URL(image?.src || '/og.png', SITE_URL).href;
 const siteSchema = [
   {
