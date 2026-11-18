@@ -1,4 +1,5 @@
 ---
+import { readingTime } from '../lib/reading-time';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PrivacyWorkbench from '../components/PrivacyWorkbench.vue';
 import { guides, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../data/site';
@@ -78,7 +79,7 @@ const schema = [
 
   <section class="guides-preview section-shell">
     <div class="split-heading"><div><p class="kicker">Learn the hidden layer</p><h2>Practical photo privacy guides</h2></div><a class="secondary-button" href="/guides/">Browse all guides</a></div>
-    <div class="guide-card-grid">{guides.slice(0, 3).map((guide, index) => <article class={`guide-card guide-${index + 1}`}><div class="guide-visual"><span>{index === 0 ? 'EXIF' : index === 1 ? 'GPS' : 'SOLID'}</span></div><p class="kicker">{guide.readTime} read</p><h3><a href={`/guides/${guide.slug}/`}>{guide.title}</a></h3><p>{guide.description}</p><a class="text-link" href={`/guides/${guide.slug}/`}>Read guide <span>→</span></a></article>)}</div>
+    <div class="guide-card-grid">{guides.slice(0, 3).map((guide, index) => <article class={`guide-card guide-${index + 1}`}><div class="guide-visual"><span>{index === 0 ? 'EXIF' : index === 1 ? 'GPS' : 'SOLID'}</span></div><p class="kicker">{readingTime(guide)} read</p><h3><a href={`/guides/${guide.slug}/`}>{guide.title}</a></h3><p>{guide.description}</p><a class="text-link" href={`/guides/${guide.slug}/`}>Read guide <span>→</span></a></article>)}</div>
   </section>
 
   <section class="exact-promise"><div class="section-shell"><div><p class="kicker mint">An exact privacy promise</p><h2>Your photo is not the product.</h2><p>Selected files, image previews, filenames, and extracted metadata stay in the browser. Ordinary website delivery and advertising requests are separate and documented.</p></div><ul><li><span>✓</span> No image upload endpoint</li><li><span>✓</span> No image server storage</li><li><span>✓</span> No account required</li><li><span>✓</span> No selected-photo data sent to advertising</li></ul><a class="secondary-button light" href="/privacy/">Read the privacy policy</a></div></section>
