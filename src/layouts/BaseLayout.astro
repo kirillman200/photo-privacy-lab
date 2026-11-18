@@ -16,7 +16,8 @@ interface Props {
 
 const { title, includeSiteName = true, description, path, type = 'website', schema, image, socialTitle, socialDescription } = Astro.props;
 const canonical = new URL(path, SITE_URL).href;
-const fullTitle = !includeSiteName || title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
+const brandedTitle = `${title} | ${SITE_NAME}`;
+const fullTitle = !includeSiteName || title === SITE_NAME || (type === 'article' && brandedTitle.length > 62) ? title : brandedTitle;
 const socialImage = new URL(image?.src || '/og.png', SITE_URL).href;
 const siteSchema = [
   {

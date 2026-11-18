@@ -167,7 +167,6 @@ export interface GuidePage {
   title: string;
   description: string;
   audience: string;
-  readTime: string;
   datePublished?: string;
   dateModified?: string;
   toolSlug?: string;
@@ -192,7 +191,6 @@ export const guides: GuidePage[] = [
   "socialDescription": "A clean metadata scan and a hard-to-trace photograph are different things. Check public copies, visible clues and the exact file before sharing.",
   "description": "Removing photo metadata hides embedded details, not the picture. Learn what reverse image search can still reveal and check your sharing copy locally.",
   "audience": "People preparing a sharing copy",
-  "readTime": "6 min",
   "datePublished": "2026-11-18",
   "dateModified": "2026-11-18",
   "toolSlug": "remove-photo-metadata",
@@ -295,7 +293,6 @@ export const guides: GuidePage[] = [
   "seoTitle": "Stop sharing a Google Photos album: links and saved copies",
   "description": "Close access to a Google Photos album, distinguish links from members, and understand why stopping sharing cannot recall saved or downloaded copies.",
   "audience": "Google Photos album owners",
-  "readTime": "5 min",
   "datePublished": "2026-11-06",
   "dateModified": "2026-11-06",
   "toolSlug": "verify-clean-photo",
@@ -409,7 +406,6 @@ export const guides: GuidePage[] = [
   "socialDescription": "Keep your original separate. Export a supported still image, review what changed, and verify the final sharing copy.",
   "description": "Export a HEIC photo as JPEG on Mac, keep the original private, inspect the result, then clean and verify the exact copy you plan to share.",
   "audience": "Mac users preparing a sharing copy",
-  "readTime": "6 min",
   "datePublished": "2026-10-22",
   "dateModified": "2026-10-22",
   "toolSlug": "verify-clean-photo",
@@ -508,7 +504,6 @@ export const guides: GuidePage[] = [
   "title": "QR codes in photos: why partial covering is not enough",
   "description": "Treat visible QR codes as readable data. Cover the whole code, check nearby identifiers and inspect the exported photo before sharing.",
   "audience": "People sharing tickets, labels and screenshots",
-  "readTime": "5 min",
   "datePublished": "2026-10-13",
   "dateModified": "2026-10-13",
   "toolSlug": "screenshot-redactor",
@@ -584,7 +579,6 @@ export const guides: GuidePage[] = [
   "title": "Why a cleaned photo can still have an ICC colour profile",
   "description": "Understand why Photo Privacy Lab preserves colour profiles, what that does and does not prove about privacy, and how to check the exported image.",
   "audience": "Photo sharing",
-  "readTime": "5 min",
   "datePublished": "2026-10-06",
   "dateModified": "2026-10-06",
   "toolSlug": "verify-clean-photo",
@@ -652,7 +646,6 @@ export const guides: GuidePage[] = [
   "title": "Why photo file dates remain after metadata removal",
   "description": "Understand Date taken, Date modified and downloaded-file timestamps, then verify the exact cleaned photo without confusing file properties with embedded metadata.",
   "audience": "People checking a cleaned photo before sharing",
-  "readTime": "6 min",
   "datePublished": "2026-09-29",
   "dateModified": "2026-09-29",
   "toolSlug": "verify-clean-photo",
@@ -726,7 +719,6 @@ export const guides: GuidePage[] = [
   "title": "Photo filename privacy: rename the copy before sharing",
   "description": "A photo filename can reveal a name, address or project even after metadata cleaning. Check the filename, archive entries and exact exported image before sharing.",
   "audience": "People sharing photos and image attachments",
-  "readTime": "5 min",
   "datePublished": "2026-09-08",
   "dateModified": "2026-09-08",
   "toolSlug": "verify-clean-photo",
@@ -797,7 +789,6 @@ export const guides: GuidePage[] = [
     title: 'What information can photo metadata reveal?',
     description: 'A practical guide to location, time, device, ownership, editing, preview, and technical fields stored alongside image pixels.',
     audience: 'Anyone sharing photos publicly',
-    readTime: '7 min',
     sections: [
       { heading: 'A photo is more than its visible pixels', paragraphs: ['Image formats can store structured records used by cameras, editors, newsrooms, and catalog systems. These records may describe when and where an image was captured, which device created it, who owns it, and how software handled it.', 'Metadata is not automatically harmful. Orientation and color profiles can make the picture display correctly. Privacy depends on the field, the sharing context, and what the visible image already reveals. Cleaning those records still leaves the photograph available for visual comparison. See [whether removing metadata stops reverse image search](/guides/metadata-removal-reverse-image-search/) before reusing a public image under a different account.'] },
       { heading: 'The fields that deserve the most attention', paragraphs: ['GPS coordinates are the clearest high-risk example because they can identify a home, workplace, school, or travel location. Owner names, camera serial numbers, document identifiers, user comments, and embedded previews can also disclose information that is not visible in the main image.'], checklist: ['Exact GPS latitude and longitude', 'Camera owner or author names', 'Device serial and document identifiers', 'Comments, descriptions, and keywords', 'Embedded thumbnails or previews'] },
@@ -810,7 +801,6 @@ export const guides: GuidePage[] = [
     title: 'How GPS coordinates are stored in photographs',
     description: 'Understand EXIF GPS latitude, longitude, hemisphere references, altitude, direction, and why coordinates can be surprisingly precise.',
     audience: 'Travelers, parents, sellers, and privacy reviewers',
-    readTime: '8 min',
     sections: [
       { heading: 'Coordinates live in an EXIF subdirectory', paragraphs: ['JPEG EXIF data commonly uses a TIFF-style directory. A GPS pointer leads to values for latitude, longitude, altitude, direction, and the letter references that identify north, south, east, or west.', 'Latitude and longitude are often stored as degrees, minutes, and seconds using rational numbers. A scanner converts those components to decimal degrees for easier review.'] },
       { heading: 'Precision is a privacy decision', paragraphs: ['Several decimal places can narrow a location to a building or smaller area. Even less precise coordinates can identify a neighborhood or work site when combined with the visible scene and posting history.'] },
@@ -823,7 +813,6 @@ export const guides: GuidePage[] = [
     title: 'How to check whether a photo contains location data',
     description: 'A step-by-step workflow for checking the original file, understanding GPS findings, cleaning a copy, and verifying the result.',
     audience: 'People preparing a photo for public sharing',
-    readTime: '6 min',
     sections: [
       { heading: 'Check the original file, not a preview', paragraphs: ['Messaging and social platforms may alter metadata, while exported thumbnails may differ from the camera original. Open the exact source you plan to transform so the result describes that file.'] },
       { heading: 'Look beyond a single GPS label', paragraphs: ['Review latitude, longitude, altitude, and direction together. Also check capture time and visible landmarks that can connect a coordinate to a specific event or routine.'], checklist: ['Latitude and longitude', 'Altitude and image direction', 'Capture date and time zone', 'Visible signs and landmarks'] },
@@ -836,7 +825,6 @@ export const guides: GuidePage[] = [
     title: 'EXIF versus XMP versus IPTC',
     description: 'Learn what the three major photo metadata families are for, where privacy-sensitive values appear, and why a cleaner must check all of them.',
     audience: 'Photographers, editors, publishers, and developers',
-    readTime: '9 min',
     sections: [
       { heading: 'EXIF describes capture and image handling', paragraphs: ['Cameras commonly write EXIF fields for device details, exposure, capture time, orientation, and GPS. JPEG EXIF is usually stored in an APP1 segment containing a TIFF structure.'] },
       { heading: 'XMP is flexible and extensible', paragraphs: ['XMP is XML-based and can carry creator, rights, workflow, location, rating, and editing information. Software may write an XMP packet even when equivalent EXIF fields are absent.'] },
@@ -849,7 +837,6 @@ export const guides: GuidePage[] = [
     title: 'Why cleaned photos sometimes appear rotated',
     description: 'How EXIF orientation works, why indiscriminate metadata removal can turn a phone photo sideways, and two safe cleaning strategies.',
     audience: 'Anyone cleaning phone photos',
-    readTime: '6 min',
     sections: [
       { heading: 'The stored pixels may be sideways', paragraphs: ['Many cameras store pixels in the sensor orientation and add an EXIF Orientation value that tells viewing software how to rotate or mirror the display. Removing that instruction without changing the pixels can make the copy look wrong.'] },
       { heading: 'Strategy one: preserve a minimal orientation tag', paragraphs: ['A lossless JPEG cleaner can remove private directories and add back a tiny EXIF block containing only the orientation instruction. The compressed image data remains untouched.'] },
@@ -862,7 +849,6 @@ export const guides: GuidePage[] = [
     title: 'How to redact a screenshot safely',
     description: 'A practical checklist for removing visible secrets, avoiding reversible overlays, flattening the export, and verifying the final image.',
     audience: 'Support teams, employees, teachers, and creators',
-    readTime: '8 min',
     sections: [
       { heading: 'Start with a copy', paragraphs: ['Keep the original private and work on a duplicate. Review the entire frame, including browser tabs, notifications, bookmarks, background windows, QR codes, avatars, and reflections.'] },
       { heading: 'Use solid masks for secrets', paragraphs: ['Opaque rectangles are the safer choice for passwords, recovery codes, account numbers, addresses, document identifiers, and private messages. Ensure the mask covers the full glyphs plus surrounding anti-aliased edges.'] },
@@ -875,7 +861,6 @@ export const guides: GuidePage[] = [
     title: 'Blur versus permanent redaction',
     description: 'Why blur and pixelation are useful visual effects but solid flattened masks are safer for text, codes, identifiers, and other secrets.',
     audience: 'Anyone hiding visible information',
-    readTime: '7 min',
     sections: [
       { heading: 'Blur changes appearance, not meaning', paragraphs: ['A blur mixes nearby pixels. Large text, short numbers, logos, and familiar layouts may remain guessable. The original information also remains available if the blur exists only as an editable layer.'] },
       { heading: 'Pixelation can preserve patterns', paragraphs: ['Pixelation replaces regions with coarse blocks, but block positions and colors can still reveal structure. It may be acceptable for an aesthetic face effect, not for a recovery code or account number.'] },
@@ -888,7 +873,6 @@ export const guides: GuidePage[] = [
     title: 'How embedded thumbnails can expose old image content',
     description: 'Why a JPEG can contain a second preview image, how stale thumbnails survive careless edits, and why redacted exports must be flattened and rescanned.',
     audience: 'People editing or redacting JPEG photos',
-    readTime: '7 min',
     sections: [
       { heading: 'One file can hold more than one image', paragraphs: ['A JPEG EXIF block may include a small thumbnail used for quick previews. That thumbnail is separate from the main compressed image stream.'] },
       { heading: 'The preview can become stale', paragraphs: ['Some editing workflows update the main image without replacing the embedded preview. A redacted main image can therefore travel with a tiny older version that still shows the original scene.'] },
@@ -901,7 +885,6 @@ export const guides: GuidePage[] = [
     title: 'How to share marketplace photos safely',
     description: 'Protect home locations, shipping labels, serial numbers, reflections, and routines when photographing items for a public listing.',
     audience: 'Marketplace sellers and small businesses',
-    readTime: '8 min',
     sections: [
       { heading: 'The room can reveal more than the item', paragraphs: ['Windows, family photographs, medication, calendars, mail, and reflections can disclose where and how you live. Use a plain backdrop and inspect the edges of every frame.'] },
       { heading: 'Labels and serial numbers need context', paragraphs: ['Shipping labels can expose names and addresses. Device serial numbers and invoices may be usable for social engineering or fraudulent support claims. Cover unnecessary identifiers with a permanent solid mask.'] },
@@ -914,7 +897,6 @@ export const guides: GuidePage[] = [
     title: 'Photo-sharing checklist for parents',
     description: 'A calm, practical review of location, school details, routines, names, uniforms, documents, and audience before sharing family photos.',
     audience: 'Parents and caregivers',
-    readTime: '7 min',
     sections: [
       { heading: 'Decide on the audience first', paragraphs: ['A private family message, a limited group, and a public social post have different risk. Choose the smallest audience that meets the reason for sharing.'] },
       { heading: 'Check location and routine clues', paragraphs: ['GPS, house numbers, school logos, street signs, sports schedules, and recurring timestamps can reveal where a child spends time. Review visible and hidden information together.'] },
@@ -927,7 +909,6 @@ export const guides: GuidePage[] = [
     title: 'Photo safety checklist for journalists',
     description: 'A threat-aware workflow for source protection, location review, device identifiers, visual clues, derivatives, and secure handoff.',
     audience: 'Journalists, researchers, and activists',
-    readTime: '10 min',
     sections: [
       { heading: 'Begin with the threat model', paragraphs: ['Identify who may seek the location, source identity, device history, or capture time and what other information they can combine with the image. A generic clean label is not enough for high-risk reporting.'] },
       { heading: 'Separate originals from publication copies', paragraphs: ['Preserve evidentiary originals in an appropriate secure system. Create a distinct derivative for publication, and document what was removed without placing the private values in the report.'] },
@@ -940,7 +921,6 @@ export const guides: GuidePage[] = [
     title: 'How browser-local image processing works',
     description: 'How File and Blob APIs, ArrayBuffer parsing, canvas rendering, Web Workers, object URLs, and browser-generated downloads can transform images without an upload endpoint.',
     audience: 'Privacy-conscious users and web developers',
-    readTime: '9 min',
     sections: [
       { heading: 'Selection grants local file access', paragraphs: ['A browser page cannot freely read your photo library. It receives File objects only for items you explicitly choose, drop, or paste. The application can read those bytes into an ArrayBuffer in the tab.'] },
       { heading: 'Parsing does not require a server', paragraphs: ['JavaScript can inspect JPEG segments, PNG chunks, and WebP RIFF chunks directly. The parsed findings exist in memory and can be cleared when you remove the files or close the tab.'] },
@@ -953,7 +933,6 @@ export const guides: GuidePage[] = [
     title: 'How to check and clean ChatGPT image metadata',
     description: 'Inspect a downloaded ChatGPT image, understand C2PA Content Credentials and SynthID, remove supported metadata from a sharing copy, and verify what changed.',
     audience: 'People downloading and sharing AI-generated images',
-    readTime: '8 min',
     datePublished: '2026-08-06',
     dateModified: '2026-08-06',
     toolSlug: 'remove-photo-metadata',
@@ -974,7 +953,6 @@ export const guides: GuidePage[] = [
     title: 'Do screenshots have metadata?',
     description: 'Learn which metadata a screenshot may contain, how operating systems and apps differ, and how to inspect the exact screenshot before sharing it.',
     audience: 'Anyone sharing screenshots',
-    readTime: '7 min',
     datePublished: '2026-08-06',
     dateModified: '2026-08-06',
     toolSlug: 'photo-metadata-viewer',
@@ -991,7 +969,6 @@ export const guides: GuidePage[] = [
     title: 'Photo metadata examples and what they mean',
     description: 'See practical examples of EXIF GPS, capture time, device, owner, XMP, IPTC, comments, orientation, profiles, and embedded previews.',
     audience: 'People learning how to read picture information',
-    readTime: '9 min',
     datePublished: '2026-08-06',
     dateModified: '2026-08-06',
     toolSlug: 'photo-metadata-viewer',
@@ -1009,7 +986,6 @@ export const guides: GuidePage[] = [
     title: 'How to remove location from iPhone photos before sharing',
     description: 'Use Apple Photos sharing controls, remove a saved location, and verify the exact exported file for GPS and other metadata before posting it.',
     audience: 'iPhone and iPad users sharing photos',
-    readTime: '8 min',
     datePublished: '2026-08-25',
     dateModified: '2026-08-25',
     toolSlug: 'verify-clean-photo',

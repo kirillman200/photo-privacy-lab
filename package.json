@@ -21,7 +21,7 @@
     "preview": "astro preview",
     "check": "astro check && tsc --noEmit",
     "test": "npm run test:unit",
-    "test:unit": "vitest run tests/metadata.test.ts tests/cleaning.test.ts tests/agent-discovery.test.ts",
+    "test:unit": "vitest run tests/metadata.test.ts tests/cleaning.test.ts tests/agent-discovery.test.ts tests/reading-time.test.ts",
     "test:site": "vitest run tests/site-contract.test.ts",
     "test:e2e": "node tests/run-e2e.mjs",
     "validate": "npm run check && npm run test:unit && npm run build && npm run test:site",
