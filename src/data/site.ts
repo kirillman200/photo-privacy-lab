@@ -735,7 +735,7 @@ export const guides: GuidePage[] = [
     {
       "heading": "A clean image can still have a revealing name",
       "paragraphs": [
-        "Yes, a filename can disclose information even when GPS and other embedded metadata have been removed. A name such as client-jordan-home-address.jpg gives a recipient context without requiring an EXIF viewer. Review the name of the exported copy as a separate step from scanning its contents.",
+        "Yes, a filename can disclose information even when GPS and other embedded metadata have been removed. A name such as client-jordan-home-address.jpg gives a recipient context without requiring an EXIF viewer. Review the name of the exported copy as a separate step from scanning its contents. For public listings, use the [marketplace photo safety guide](/guides/marketplace-photo-safety/).",
         "MDN documents that a browser can read the name of a file selected by the user through the File API. That name is separate from the image's embedded metadata. This does not mean every site uploads it, but it explains why a filename belongs in the sharing review rather than being assumed invisible."
       ],
       "checklist": [
@@ -801,7 +801,7 @@ export const guides: GuidePage[] = [
     sections: [
       { heading: 'A photo is more than its visible pixels', paragraphs: ['Image formats can store structured records used by cameras, editors, newsrooms, and catalog systems. These records may describe when and where an image was captured, which device created it, who owns it, and how software handled it.', 'Metadata is not automatically harmful. Orientation and color profiles can make the picture display correctly. Privacy depends on the field, the sharing context, and what the visible image already reveals. Cleaning those records still leaves the photograph available for visual comparison. See [whether removing metadata stops reverse image search](/guides/metadata-removal-reverse-image-search/) before reusing a public image under a different account.'] },
       { heading: 'The fields that deserve the most attention', paragraphs: ['GPS coordinates are the clearest high-risk example because they can identify a home, workplace, school, or travel location. Owner names, camera serial numbers, document identifiers, user comments, and embedded previews can also disclose information that is not visible in the main image.'], checklist: ['Exact GPS latitude and longitude', 'Camera owner or author names', 'Device serial and document identifiers', 'Comments, descriptions, and keywords', 'Embedded thumbnails or previews'] },
-      { heading: 'Context changes the risk', paragraphs: ['A camera model in a landscape photo is usually a technical detail. The same model and timestamp may matter more to a journalist protecting a source or an employee sharing evidence from a restricted site.', 'Use risk labels as a prompt for judgment, not as a substitute for reviewing the purpose and audience of the share.'] },
+      { heading: 'Context changes the risk', paragraphs: ['A camera model in a landscape photo is usually a technical detail. The same model and timestamp may matter more to a journalist protecting a source or an employee sharing evidence from a restricted site.', 'Use risk labels as a prompt for judgment, not as a substitute for reviewing the purpose and audience of the share. For family photos, follow the [photo-sharing checklist for parents](/guides/photo-sharing-checklist-for-parents/).'] },
       { heading: 'A safer sharing routine', paragraphs: ['Scan the original, remove fields that do not need to travel, flatten any visual redactions, then inspect the exported copy. Keep the original private and share only the verified derivative.'], checklist: ['Review hidden metadata', 'Inspect the visible background and reflections', 'Use solid masks for secrets', 'Verify the exact exported file'] },
     ],
   },
@@ -840,7 +840,7 @@ export const guides: GuidePage[] = [
     sections: [
       { heading: 'EXIF describes capture and image handling', paragraphs: ['Cameras commonly write EXIF fields for device details, exposure, capture time, orientation, and GPS. JPEG EXIF is usually stored in an APP1 segment containing a TIFF structure.'] },
       { heading: 'XMP is flexible and extensible', paragraphs: ['XMP is XML-based and can carry creator, rights, workflow, location, rating, and editing information. Software may write an XMP packet even when equivalent EXIF fields are absent.'] },
-      { heading: 'IPTC supports publishing workflows', paragraphs: ['IPTC fields are widely used for captions, credits, keywords, locations, and editorial management. They are useful in a newsroom or asset library but may be unnecessary in a public sharing copy.'] },
+      { heading: 'IPTC supports publishing workflows', paragraphs: ['IPTC fields are widely used for captions, credits, keywords, locations, and editorial management. They are useful in a newsroom or asset library but may be unnecessary in a public sharing copy. See the [photo safety checklist for journalists](/guides/photo-safety-for-journalists/) for a publication handoff.'] },
       { heading: 'Cleaning one family is not enough', paragraphs: ['A tool that removes only an EXIF block may leave an XMP location or IPTC caption behind. A trustworthy report names the metadata structures it checked and states format-specific limitations.'], checklist: ['Scan EXIF directories', 'Detect XMP packets', 'Detect IPTC blocks', 'Check comments and embedded previews', 'Rescan the output'] },
     ],
   },
@@ -858,30 +858,163 @@ export const guides: GuidePage[] = [
     ],
   },
   {
-    slug: 'redact-a-screenshot-safely',
-    title: 'How to redact a screenshot safely',
-    description: 'A practical checklist for removing visible secrets, avoiding reversible overlays, flattening the export, and verifying the final image.',
-    audience: 'Support teams, employees, teachers, and creators',
-    readTime: '8 min',
-    sections: [
-      { heading: 'Start with a copy', paragraphs: ['Keep the original private and work on a duplicate. Review the entire frame, including browser tabs, notifications, bookmarks, background windows, QR codes, avatars, and reflections.'] },
-      { heading: 'Use solid masks for secrets', paragraphs: ['Opaque rectangles are the safer choice for passwords, recovery codes, account numbers, addresses, document identifiers, and private messages. Ensure the mask covers the full glyphs plus surrounding anti-aliased edges.'] },
-      { heading: 'Flatten the result', paragraphs: ['A reversible editor layer is not a safe export. Render the composed result into fresh image pixels so the hidden content is not merely covered by an editable object.'] },
-      { heading: 'Review at full size', paragraphs: ['Zoom into the exported copy and check every edge. Then scan the file for hidden metadata and old embedded previews before sharing it.'], checklist: ['Use a copy', 'Cover full edges', 'Flatten into new pixels', 'Rescan the output', 'Share only the derivative'] },
-    ],
+    "slug": "redact-a-screenshot-safely",
+    "title": "How to redact a screenshot safely",
+    "seoTitle": "Redact a screenshot safely: cover, export and verify",
+    "includeSiteName": false,
+    "socialTitle": "Redact a screenshot safely: cover, export and verify",
+    "socialDescription": "Find every copy of a secret, use opaque masks, and check the exact PNG you will attach.",
+    "description": "Redact a screenshot with solid masks, export a fresh image and check the downloaded copy. Follow Windows and Mac steps without sharing the original.",
+    "audience": "Support teams, employees, teachers, and creators",
+    "readTime": "8 min",
+    "datePublished": "2026-07-21",
+    "dateModified": "2026-11-18",
+    "toolSlug": "verify-clean-photo",
+    "toolLabel": "Verify the sharing copy",
+    "intro": "To redact a screenshot safely, cover private details with fully opaque solid masks, render the edited picture into a new image and inspect that exported file. Check the entire frame, not just the obvious secret. Share only the reviewed derivative, keeping the original and any editable project out of the attachment.",
+    "sections": [
+      {
+        "heading": "What should you remove before opening an editor?",
+        "paragraphs": [
+          "Decide what the recipient actually needs. A support team investigating an error usually needs the error message and relevant controls, not an entire desktop. Capture only the necessary area when possible, then review tabs, notifications, account menus, file paths, sidebars and background windows.",
+          "In a fictional support request, Priya captures a billing error. Her email appears in the account menu and again in a browser tab. A recovery-code panel is open behind the error. Priya closes the unrelated panel and takes a smaller capture, reducing the amount that needs redaction.",
+          "Next, scan for repeated information. A name removed from the main message may remain in the chat heading. Include QR codes, barcodes and avatars in that pass rather than searching only for text that looks like a password.",
+          "If a real credential has already reached someone who should not have it, use the account provider's recovery process and replace that credential. Editing a new attachment addresses the new image, not copies already received."
+        ]
+      },
+      {
+        "heading": "Why use solid masks instead of a highlighter or blur?",
+        "paragraphs": [
+          "Choose a filled, opaque rectangle that extends beyond every letter and its edge pixels. A translucent highlighter deliberately lets the background contribute to the result. A rectangle with only a border leaves its centre readable.",
+          "Blur and pixelation alter the appearance of source information rather than replacing the whole region with a uniform fill. Use the [blur-versus-redaction comparison](/guides/blur-vs-permanent-redaction/) when choosing a method; there is no universal blur-strength setting that makes every secret safe.",
+          "For Priya's account email, cover the full address in both places, including the domain. For the recovery panel, remove the whole panel rather than leaving a fragment of each code visible. Then preserve the non-sensitive error message so the support team can still act."
+        ]
+      },
+      {
+        "heading": "What can Windows Snipping Tool redact?",
+        "paragraphs": [
+          "[Microsoft documents Text actions and Quick redact](https://support.microsoft.com/en-us/windows/apps/use-snipping-tool-to-capture-screenshots) for captured snips. Quick redact targets recognised email addresses and phone numbers; use a separate visual pass for other details.",
+          "1. Open your capture in Snipping Tool and select Text actions if available.\n2. Use Quick redact for detected email addresses and phone numbers.\n3. Review the result for missed instances and information outside those categories.\n4. Use Save as to save a separate copy rather than sharing immediately.\n5. Cover any remaining secrets with the manual solid-mask workflow below, then inspect the exported image before attaching it.",
+          "In Priya's capture, a customer reference and a QR code still need attention even if Quick redact finds the email. Treat text recognition as a useful first pass. Check for an automatically saved original in the Screenshots folder when choosing the final attachment.",
+          "If your installed version lacks these controls, use a manual opaque-mask workflow instead of improvising with a highlighter. Keep the destination file name distinct from the initial capture."
+        ]
+      },
+      {
+        "heading": "How can you cover information on a Mac?",
+        "paragraphs": [
+          "For a PNG or JPEG opened in Preview, [Apple's image-annotation instructions](https://support.apple.com/guide/preview/annotate-an-image-prvw1501/mac) describe the Markup toolbar, Shapes and Fill Color. Work on a duplicate image:",
+          "1. Open the duplicate and show the Markup toolbar.\n2. Add a rectangle and set its fill to a fully opaque colour.\n3. Position and resize it to cover the complete sensitive region.\n4. Save the image, reopen it and inspect the covered areas at full size.",
+          "Apple distinguishes saved image annotations from annotations in an editable PDF. Keep this task as a raster-image export rather than turning the screenshot into a PDF to retain movable objects.",
+          "If the image passes through iPhone Photos later, avoid All Photos Data when sharing. [Apple says that option can include the original and edit history](https://support.apple.com/guide/iphone/share-photos-and-videos-iphf28f17237/ios). Select the final derivative file rather than an original-library sharing route."
+        ]
+      },
+      {
+        "heading": "How do you flatten and verify a local sharing copy?",
+        "paragraphs": [
+          "The [screenshot redactor](/screenshot-redactor/) offers a manual route in the browser. Selected image bytes remain local. Its interface accepts a supported JPEG, PNG or static WebP, up to 10 MB per file.",
+          "1. Choose or paste the image and select solid.\n2. Drag over each private detail with a margin around its edges. Use crop for background you do not need.\n3. Choose Flatten and verify. The tool renders a fresh PNG and scans that output for supported private metadata.\n4. Choose Download redacted PNG.\n5. Open the downloaded PNG separately and review the visible result.",
+          "Priya checks the two email locations, the removed recovery panel and the full frame. The automatic metadata pass says nothing about whether she remembered every visible secret. Reopening the actual download makes that final human check concrete."
+        ]
+      },
+      {
+        "heading": "What should you inspect before attaching the file?",
+        "paragraphs": [
+          "Review the file at full size, then at a smaller size resembling the recipient's view. Look for missed edges, duplicate text, codes and unrelated content that gives the same information away.",
+          "A screenshot can also carry hidden information, so use [the screenshot metadata guide](/guides/do-screenshots-have-metadata/) to understand that separate check. Open the final download in the [clean-copy verifier](/verify-clean-photo/) and send that file, not the original screenshot, editor project or a folder containing both.",
+          "Sources checked November 2026."
+        ]
+      }
+    ]
   },
   {
-    slug: 'blur-vs-permanent-redaction',
-    title: 'Blur versus permanent redaction',
-    description: 'Why blur and pixelation are useful visual effects but solid flattened masks are safer for text, codes, identifiers, and other secrets.',
-    audience: 'Anyone hiding visible information',
-    readTime: '7 min',
-    sections: [
-      { heading: 'Blur changes appearance, not meaning', paragraphs: ['A blur mixes nearby pixels. Large text, short numbers, logos, and familiar layouts may remain guessable. The original information also remains available if the blur exists only as an editable layer.'] },
-      { heading: 'Pixelation can preserve patterns', paragraphs: ['Pixelation replaces regions with coarse blocks, but block positions and colors can still reveal structure. It may be acceptable for an aesthetic face effect, not for a recovery code or account number.'] },
-      { heading: 'Solid means fully opaque', paragraphs: ['A secure visual mask should have full opacity and no blend mode that lets source pixels influence the result. It must be baked into a fresh export rather than stored as a removable overlay.'] },
-      { heading: 'Match the tool to the consequence', paragraphs: ['Use solid masks when disclosure could cause account loss, personal danger, harassment, or financial harm. Use blur only when obscuring identity is a preference rather than a guarantee.'] },
-    ],
+    "slug": "blur-vs-permanent-redaction",
+    "title": "Blur versus permanent redaction",
+    "seoTitle": "Blur vs permanent redaction: which should you use?",
+    "includeSiteName": false,
+    "socialTitle": "Blur vs permanent redaction: which should you use?",
+    "socialDescription": "Blur versus permanent redaction: separate visual obscuring from replacing private pixels, then check the exact export.",
+    "description": "Choose blur for a visual effect and solid, flattened masks for private text or codes. Compare the methods and check the exact image you plan to send.",
+    "audience": "Anyone hiding visible information",
+    "readTime": "7 min",
+    "datePublished": "2026-07-21",
+    "dateModified": "2026-11-18",
+    "toolSlug": "verify-clean-photo",
+    "toolLabel": "Verify the sharing copy",
+    "intro": "When choosing blur versus permanent redaction, use a fully opaque, flattened mask for information that must leave the shared image. Blur and pixelation can retain visual clues. A solid mask must cover the whole detail and become part of the exported pixels. Review that final file rather than trusting the editor preview.",
+    "sections": [
+      {
+        "heading": "How do the methods change an image?",
+        "paragraphs": [
+          "Blur softens the appearance of existing information. [Microsoft's Gaussian blur documentation](https://learn.microsoft.com/en-us/windows/win32/direct2d/gaussian-blur) describes a Gaussian-kernel effect with an adjustable blur amount. That makes it an image-processing operation, not a promise that a name or code has become undiscoverable.",
+          "Pixelation reduces visible detail into blocks. An opaque fill replaces the selected visible region with a uniform colour. Cropping excludes a region from the intended exported frame. Each can change what a viewer sees, but they answer different sharing goals.",
+          "In a fictional teaching example, Lee wants to show a settings screen without its private invitation code. A softened background is harmless decoration; the code needs full removal from the sharing copy. Lee chooses a solid rectangle for the code rather than applying one effect to the whole image."
+        ],
+        "table": {
+          "afterParagraph": 1,
+          "headers": [
+            "Method",
+            "Appropriate goal",
+            "What to check before sharing"
+          ],
+          "rows": [
+            [
+              "Blur",
+              "Soften a background for appearance",
+              "Do not depend on it to protect private text or a code."
+            ],
+            [
+              "Pixelation",
+              "Create a coarse visual effect",
+              "Remaining shapes and context can still provide clues."
+            ],
+            [
+              "Opaque solid fill",
+              "Remove a complete visible secret from the derivative",
+              "Cover every edge, flatten and inspect the export."
+            ],
+            [
+              "Crop",
+              "Exclude unnecessary parts of the frame",
+              "Confirm the exported file contains only the kept region."
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "Why can blur or pixelation leave useful clues?",
+        "paragraphs": [
+          "A private field does not have to be perfectly reconstructed to reveal something useful. A partly readable domain, a familiar logo, the shape of a word or a known form layout can narrow what a viewer infers. Adjacent unedited text may disclose the same information directly.",
+          "For Lee's screen, blurring the invitation code leaves its label and an account email visible below it. A reader who already knows the account context has more information than someone seeing an isolated block of pixels. Lee removes the email too, rather than treating blur strength as the only variable.",
+          "This is a practical reason to prefer complete replacement for secrets, not a claim that every blurred image can be reversed. There is no general blur radius or pixel-block size that clears every photograph, display size and disclosure consequence."
+        ]
+      },
+      {
+        "heading": "What makes a solid mask genuinely opaque?",
+        "paragraphs": [
+          "Choose a filled rectangle, not an outline, and use a colour with full opacity. Disable transparency or blend effects that allow the underlying content to contribute. [Microsoft's transparency documentation](https://learn.microsoft.com/en-us/windows/win32/direct2d/opacity-masks-overview) explains that alpha information controls how source pixels are blended; the relevant editorial lesson is to avoid a semi-transparent cover.",
+          "Extend the fill beyond the first and last character and beyond faint edge pixels. Cover the entire QR code or barcode rather than leaving fragments for someone to inspect. If the detail appears twice, mask both instances.",
+          "Lee's first rectangle stops at the code's last dark stroke. On closer inspection, a faint edge remains outside it. Lee enlarges the mask, then checks that the useful settings labels still read correctly. The test is coverage in the exported picture, not whether the on-screen rectangle looks roughly aligned."
+        ]
+      },
+      {
+        "heading": "Does saving an edit remove the original?",
+        "paragraphs": [
+          "Not necessarily. An editable project or photo-library item may retain its original and editing state. [Apple documents that Photos keeps the original](https://support.apple.com/guide/photos/editing-basics-pht304c2ace6/mac) and supports Revert to Original. Keep that private working item separate from the outgoing derivative.",
+          "Flattening renders the edited picture into a new raster image, with the masks baked into its pixels rather than supplied as movable objects. It does not erase your private original or copies already shared. Also check for [older embedded thumbnails](/guides/embedded-thumbnail-risk/) and other hidden structures in the exported file.",
+          "Lee saves the project for private revision, then exports a separate PNG containing the finished masks. Sending both files in one folder would undo the separation: the recipient would still receive the private working material. Rename and organise the derivative so that it is easy to select alone."
+        ]
+      },
+      {
+        "heading": "How do you make and inspect the final derivative?",
+        "paragraphs": [
+          "For an actual capture-and-mask procedure, follow [how to redact a screenshot safely](/guides/redact-a-screenshot-safely/). To apply the choice locally, the [manual screenshot redactor](/screenshot-redactor/) provides solid, blur, pixelate and crop controls.",
+          "1. Open a supported JPEG, PNG or static WebP, up to 10 MB.\n2. Select solid and cover each complete private region.\n3. Choose Flatten and verify, then Download redacted PNG.\n4. Open that download independently and inspect the full image at full size.\n5. Review its metadata as a separate task before attaching it.",
+          "The tool renders a new PNG and rescans supported hidden-data categories. It does not automatically find every face, code or identifier. Use [what metadata can reveal](/guides/what-photo-metadata-can-reveal/) to understand why a hidden-data check and a visual review remain separate.",
+          "For Lee, completion means the code and duplicate email are absent from the outgoing pixels, the exported file passes the supported metadata checks, and the private project is not attached. Finish with the [clean-copy verifier](/verify-clean-photo/) on that exact export.",
+          "Sources checked November 2026."
+        ]
+      }
+    ]
   },
   {
     slug: 'embedded-thumbnail-risk',
@@ -893,47 +1026,203 @@ export const guides: GuidePage[] = [
       { heading: 'One file can hold more than one image', paragraphs: ['A JPEG EXIF block may include a small thumbnail used for quick previews. That thumbnail is separate from the main compressed image stream.'] },
       { heading: 'The preview can become stale', paragraphs: ['Some editing workflows update the main image without replacing the embedded preview. A redacted main image can therefore travel with a tiny older version that still shows the original scene.'] },
       { heading: 'Metadata-only edits need careful rules', paragraphs: ['A lossless metadata cleaner should remove embedded thumbnails. Any workflow that changes visible pixels should generate a completely new flattened image with no inherited EXIF, XMP, or IPTC blocks.'] },
-      { heading: 'Verification catches the second copy', paragraphs: ['Rescan the output and require the embedded-thumbnail category to report not found. The report should describe the category without copying any private source values.'] },
+      { heading: 'Verification catches the second copy', paragraphs: ['Rescan the output and require the embedded-thumbnail category to report not found. The report should describe the category without copying any private source values. Compare [blur and permanent redaction](/guides/blur-vs-permanent-redaction/) when choosing how to cover visible information.'] },
     ],
   },
   {
-    slug: 'marketplace-photo-safety',
-    title: 'How to share marketplace photos safely',
-    description: 'Protect home locations, shipping labels, serial numbers, reflections, and routines when photographing items for a public listing.',
-    audience: 'Marketplace sellers and small businesses',
-    readTime: '8 min',
-    sections: [
-      { heading: 'The room can reveal more than the item', paragraphs: ['Windows, family photographs, medication, calendars, mail, and reflections can disclose where and how you live. Use a plain backdrop and inspect the edges of every frame.'] },
-      { heading: 'Labels and serial numbers need context', paragraphs: ['Shipping labels can expose names and addresses. Device serial numbers and invoices may be usable for social engineering or fraudulent support claims. Cover unnecessary identifiers with a permanent solid mask.'] },
-      { heading: 'Remove capture location and time', paragraphs: ['GPS can point to the pickup location. Repeated timestamps may reveal routines. Create a cleaned copy for the listing while retaining the original privately.'] },
-      { heading: 'Use a repeatable listing checklist', paragraphs: ['A consistent routine is safer than relying on memory during a busy listing session.'], checklist: ['Use a neutral background', 'Check reflective surfaces', 'Cover labels and identifiers', 'Remove metadata', 'Verify the listing copy'] },
-    ],
+    "slug": "marketplace-photo-safety",
+    "title": "How to share marketplace photos safely",
+    "seoTitle": "Marketplace photo safety: protect your home details",
+    "includeSiteName": false,
+    "socialTitle": "Marketplace photo safety: protect your home details",
+    "socialDescription": "Show the item's condition without exposing mail, family details or hidden capture locations.",
+    "description": "Prepare safer marketplace photos: check reflections, labels and location data, keep useful product details, then verify each final listing image.",
+    "audience": "Marketplace sellers and small businesses",
+    "readTime": "8 min",
+    "datePublished": "2026-07-21",
+    "dateModified": "2026-11-18",
+    "toolSlug": "verify-clean-photo",
+    "toolLabel": "Verify the sharing copy",
+    "intro": "Marketplace photo safety starts with the scene: show the item's condition against a plain background, remove private labels and reflections, and clean the final files' metadata. Keep useful model details visible. Review every exported image before uploading, so a close-up or extra photo does not reveal what the main image hides.",
+    "sections": [
+      {
+        "heading": "What should you move before taking the photographs?",
+        "paragraphs": [
+          "Prepare the scene instead of planning to edit everything later. Move mail, prescriptions, family photographs, appointment cards and work documents away from the item. Avoid a window view or a house number if the listing should not identify your home.",
+          "In a fictional listing, Jordan photographs a used coffee machine on the kitchen counter. A parcel label sits beside it, and a school timetable hangs behind it. Jordan moves the machine to a plain table and removes both objects before taking new photographs.",
+          "Keep the lighting useful: buyers should still see dents, scratches and missing parts. A privacy edit should remove unrelated information, not disguise the item's condition. If the safest crop hides a damaged area, take a different picture that shows the damage without the personal background."
+        ]
+      },
+      {
+        "heading": "Where do reflections and close-ups expose extra details?",
+        "paragraphs": [
+          "Check shiny screens, mirrors, chrome, glass doors and glossy packaging. Look at the actual full-size photographs, not just small listing thumbnails. A reflection can include the photographer, another person, an open document or a view through a window.",
+          "Jordan's coffee-machine front reflects a shipping label from the opposite counter. Moving the first label was useful, but it did not settle the whole scene. Jordan changes the angle and checks the new reflection before keeping that photograph.",
+          "Inspect every close-up independently. A detail shot of a control panel may include an account name on an app screen; a photograph of accessories may include an invoice. Use the [solid-mask comparison](/guides/blur-vs-permanent-redaction/) for details you must cover, or retake the image when a clean background is simpler."
+        ]
+      },
+      {
+        "heading": "Which product identifiers should stay visible?",
+        "paragraphs": [
+          "Distinguish a model number that helps a buyer check compatibility from an identifier unique to your device or account. Show the model, dimensions, connector type and relevant accessories when they matter to the sale. Consider whether a full serial, barcode, receipt address or account-linked QR code is necessary in the public picture.",
+          "For Jordan's machine, the model label helps a buyer find the correct manual. The adjoining owner-registration code serves a different purpose. Jordan keeps the model readable and covers the entire registration-code area on the sharing copy.",
+          "If a buyer needs further evidence, agree on which detail they need before sending another photograph. Prepare and check that image separately rather than sending the unedited original. Keep the original for your own records, and do not obscure safety information or misrepresent the item's ownership or condition."
+        ]
+      },
+      {
+        "heading": "How do you remove the file's hidden information?",
+        "paragraphs": [
+          "Start with the [photo-metadata overview](/guides/what-photo-metadata-can-reveal/). GPS is one concern, but a caption or creator-contact field may also be relevant. The [IPTC Photo Metadata Standard](https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata) defines fields for creator contact details, descriptions and locations; a publishing export may therefore need more than a GPS-only check.",
+          "For a one-off iPhone share, [Apple documents this location-control route](https://support.apple.com/en-au/guide/personal-safety/ips0d7a5df82/web):",
+          "1. Open Photos and select the picture or pictures.\n2. Tap Share, then Options.\n3. Turn off Location and return to the Share sheet.\n4. Choose the destination and check that the intended derivative is selected.",
+          "For an exported listing file, inspect and [remove supported photo metadata locally](/remove-photo-metadata/), then download the clean copy. The local utility supports JPEG, PNG and static WebP up to 10 MB per file; export a supported still first if your source is HEIC.",
+          "If you use Google Photos, do not treat a hidden account location as a cleaned download. [Google explains that external downloads can carry the original device-saved location](https://support.google.com/photos/answer/6153599?hl=en&co=GENIE.Platform%3DDesktop). Jordan checks the actual downloaded product images instead of using an album's map display as the test."
+        ]
+      },
+      {
+        "heading": "How do you verify a complete set of listing photos?",
+        "paragraphs": [
+          "Use a separate sharing folder, with only the approved derivatives inside it. An attachment picker full of originals and exports makes it easier to choose the wrong file. Give the derivatives neutral, useful names; [filename privacy](/guides/photo-filename-privacy/) is separate from embedded metadata.",
+          "For Jordan's listing, the review covers the front, side, model label, accessories and damage close-up. The front photograph passes only after the reflection is removed; the model-label photograph passes only after the registration code is fully covered. A successful main-image review does not clear the other images automatically.",
+          "Before uploading each file:",
+          "- Check the full frame and reflective surfaces.\n- Confirm that condition and model details remain truthful and useful.\n- Check every label, barcode and code, not just the most obvious address.\n- Open the final export and review its supported metadata findings.\n- Select only those reviewed derivatives in the listing uploader.",
+          "After upload, check the listing's visible images and text for accidental address or pickup-detail disclosures. A platform's displayed preview says nothing certain about every version it may provide, so keep your local-file review as a distinct step. Start the final pass with the [clean-copy verifier](/verify-clean-photo/).",
+          "Sources checked November 2026."
+        ]
+      }
+    ]
   },
   {
-    slug: 'photo-sharing-checklist-for-parents',
-    title: 'Photo-sharing checklist for parents',
-    description: 'A calm, practical review of location, school details, routines, names, uniforms, documents, and audience before sharing family photos.',
-    audience: 'Parents and caregivers',
-    readTime: '7 min',
-    sections: [
-      { heading: 'Decide on the audience first', paragraphs: ['A private family message, a limited group, and a public social post have different risk. Choose the smallest audience that meets the reason for sharing.'] },
-      { heading: 'Check location and routine clues', paragraphs: ['GPS, house numbers, school logos, street signs, sports schedules, and recurring timestamps can reveal where a child spends time. Review visible and hidden information together.'] },
-      { heading: 'Look for names and documents', paragraphs: ['Certificates, mail, medical paperwork, device screens, and name tags can be readable at full resolution even when they look small in a feed preview.'] },
-      { heading: 'Prepare a sharing copy', paragraphs: ['Crop unnecessary background, apply solid masks where needed, clean metadata, and inspect the exact exported file.'], checklist: ['Choose the audience', 'Remove location clues', 'Cover names and documents', 'Clean metadata', 'Review the final copy at full size'] },
-    ],
+    "slug": "photo-sharing-checklist-for-parents",
+    "title": "Photo-sharing checklist for parents",
+    "seoTitle": "Photo-sharing checklist for parents: a safer routine",
+    "includeSiteName": false,
+    "socialTitle": "Photo-sharing checklist for parents: a safer routine",
+    "socialDescription": "Choose the audience, check school and home clues, and verify a separate family-photo sharing copy.",
+    "description": "Before sharing family photos, check the audience, school clues, names and hidden location data. Make a separate copy and verify the file you send.",
+    "audience": "Parents and caregivers",
+    "readTime": "7 min",
+    "datePublished": "2026-07-21",
+    "dateModified": "2026-11-18",
+    "toolSlug": "verify-clean-photo",
+    "toolLabel": "Verify the sharing copy",
+    "intro": "Before sharing a child's photo, work through a short checklist: choose the audience, check visible names and places, and prepare a separate sharing copy. Parents and caregivers should review hidden location data too. Open the final exported file before sending it, and keep the original in your private library.",
+    "sections": [
+      {
+        "heading": "Who needs to see this photo?",
+        "paragraphs": [
+          "Start with the reason for sharing. A grandparent wanting to see a birthday cake needs a different audience from a public club announcement. Choose the smallest group that serves that purpose, and check the recipients before attaching anything.",
+          "Ask your child, when appropriate, whether they are comfortable with the picture and caption. Check with other families before posting their children. If someone objects, choose a different photograph or leave the post unsent rather than treating editing as automatic permission.",
+          "For example, a school-event picture may include a child whose family has asked to stay out of public posts. Sending that same group shot to a large neighbourhood chat still expands its audience. A close-up of your own child's artwork could meet the original purpose with less information about other people."
+        ]
+      },
+      {
+        "heading": "What can the picture and caption reveal together?",
+        "paragraphs": [
+          "Inspect the full-resolution image, including corners, mirrors and windows. Look for school badges, house numbers, street signs, name tags, certificates, appointment letters and screens. Read the caption alongside it: an unnamed uniform becomes more revealing when the text names a school and describes a daily pickup time.",
+          "A fictional parent, Sam, wants to share a first-day-of-school photo. The frame includes a school crest, a house number and a sibling's full name on a bag. Sam chooses a closer crop, removes the bag from the frame and avoids naming the school in the caption.",
+          "If those details are central to the picture, take another photograph against a plain background. Covering a badge does little if a notice behind it still names the school. Work from a duplicate so that the family keeps its unedited memory privately."
+        ]
+      },
+      {
+        "heading": "How do you check an iPhone photo before sharing?",
+        "paragraphs": [
+          "[Apple's photo-information instructions](https://support.apple.com/guide/iphone/see-photo-and-video-information-iph0edb9c18f/ios) explain how to open a photo and swipe up or tap Info to review its saved details. Use that as an initial check, then decide what belongs in the outgoing copy.",
+          "For a one-off share from iPhone Photos, follow [Apple's location-metadata sharing instructions](https://support.apple.com/en-au/guide/personal-safety/ips0d7a5df82/web):",
+          "1. Open the selected photo and tap Share.\n2. Tap Options and turn off Location.\n3. Leave All Photos Data off when offered, then return to the Share sheet.\n4. Choose the intended recipient or destination and review the attachment.",
+          "[Apple's separate sharing guide](https://support.apple.com/guide/iphone/share-photos-and-videos-iphf28f17237/ios) describes All Photos Data as including the original file, edit history and metadata. Avoid selecting it when your purpose is to send only a reviewed derivative.",
+          "Sam uses the location switch for the school photo, but still checks the visible crest separately. For library changes and a fuller export workflow, use [removing location from iPhone photos](/guides/remove-location-from-iphone-photos/)."
+        ]
+      },
+      {
+        "heading": "What should you check in a Google Photos family album?",
+        "paragraphs": [
+          "Review who has access separately from whether photo locations are shown. For an existing shared album on a computer, [Google's location-sharing instructions](https://support.google.com/photos/answer/6153599?hl=en&co=GENIE.Platform%3DDesktop) give this route:",
+          "1. Open Google Photos and choose Collections > Albums.\n2. Open the shared album and click Share.\n3. Beside Sharing photo locations, choose Album options.\n4. Turn Share photo locations off and click Done.",
+          "This controls the album's location display. Google says its location-sharing settings do not change the original device location in a file downloaded and shared outside Google Photos. Inspect a downloaded attachment separately rather than assuming the album setting cleaned it.",
+          "For Sam's birthday album, disabling locations and checking the members are separate tasks. If the audience is no longer appropriate, use the [Google Photos album access-withdrawal guide](/guides/stop-sharing-google-photos-album/) rather than uploading a replacement picture and assuming the old access disappeared."
+        ]
+      },
+      {
+        "heading": "How do you prepare and check the sharing copy?",
+        "paragraphs": [
+          "Use [what photo metadata can reveal](/guides/what-photo-metadata-can-reveal/) to distinguish embedded fields from visible information. A school sign lives in the pixels; a GPS record lives in the file. Removing one leaves the other to review.",
+          "1. Keep the original private and create a clearly named sharing copy.\n2. Crop unnecessary background or use the [manual image redactor](/screenshot-redactor/) with solid masks for details that must be removed.\n3. Clean the sharing copy's supported metadata.\n4. Download the result, reopen it and inspect every edge at full size.\n5. Attach only that export and check the post's recipients and caption.",
+          "The local tools accept JPEG, PNG and static WebP up to 10 MB per file; export a supported still copy first if your original is HEIC or a Live Photo. A metadata result covers supported hidden fields, not a judgement about whether the child or place can be recognised.",
+          "For Sam, the final decision includes a closer photograph, a non-identifying caption and a small family audience. Finish by opening the actual attachment in the [clean-copy verifier](/verify-clean-photo/), rather than relying on an earlier check of the original.",
+          "Sources checked November 2026."
+        ]
+      }
+    ]
   },
   {
-    slug: 'photo-safety-for-journalists',
-    title: 'Photo safety checklist for journalists',
-    description: 'A threat-aware workflow for source protection, location review, device identifiers, visual clues, derivatives, and secure handoff.',
-    audience: 'Journalists, researchers, and activists',
-    readTime: '10 min',
-    sections: [
-      { heading: 'Begin with the threat model', paragraphs: ['Identify who may seek the location, source identity, device history, or capture time and what other information they can combine with the image. A generic clean label is not enough for high-risk reporting.'] },
-      { heading: 'Separate originals from publication copies', paragraphs: ['Preserve evidentiary originals in an appropriate secure system. Create a distinct derivative for publication, and document what was removed without placing the private values in the report.'] },
-      { heading: 'Review hidden and visible identifiers', paragraphs: ['GPS, serial numbers, owner fields, timestamps, embedded previews, shadows, weather, landmarks, badges, reflections, and unique objects can all contribute to identification.'] },
-      { heading: 'Use layered verification', paragraphs: ['Combine automated metadata checks with a second-person visual review when consequences are high. Follow organizational security and legal procedures rather than treating a browser utility as a complete operational-security system.'], checklist: ['Define the adversary and consequence', 'Protect the original', 'Create a cleaned derivative', 'Perform independent visual review', 'Verify the exact publication file'] },
-    ],
+    "slug": "photo-safety-for-journalists",
+    "title": "Photo safety checklist for journalists",
+    "seoTitle": "Photo safety for journalists: a publication checklist",
+    "includeSiteName": false,
+    "socialTitle": "Photo safety for journalists: a publication checklist",
+    "socialDescription": "Separate the evidentiary original, the publication image and the delivery context when protecting a source.",
+    "description": "Review photo metadata, visible source clues and captions before publication. Preserve the original, export a separate copy and verify the handoff.",
+    "audience": "Journalists, researchers, and activists",
+    "readTime": "10 min",
+    "datePublished": "2026-07-21",
+    "dateModified": "2026-11-18",
+    "toolSlug": "verify-clean-photo",
+    "toolLabel": "Verify the sharing copy",
+    "intro": "For journalists, photo safety means identifying what could expose the source, preserving the original privately and making a separate publication copy. Review metadata, visible clues, captions and the delivery route together. Have another person inspect the exact outgoing image, then verify that same file after any final resize, watermark or export.",
+    "sections": [
+      {
+        "heading": "What are you trying to keep private?",
+        "paragraphs": [
+          "Name the information at risk before choosing an edit: a source's identity, their access to a room, the capture location, a meeting time or the device used. Decide who might combine that detail with information they already have. That decision may lead to a different photograph or no publication, rather than another cleaning pass.",
+          "Consider a fictional newsroom receiving a photograph from inside a workplace. The source can be identified by a badge, the room's unusual equipment or knowledge of who was present. Removing GPS addresses one stored record; it leaves those other routes for the editor to assess.",
+          "Make the publication decision with the responsible editor and your organisation's source-protection procedures. Treat a browser utility as one bounded image-processing step, not the security plan for contacting, storing or protecting a source."
+        ]
+      },
+      {
+        "heading": "Which original should you preserve, and who receives it?",
+        "paragraphs": [
+          "Keep the received original in the newsroom's approved restricted storage. Create a working derivative rather than overwriting the only original. Record the transformation and the file's role without copying sensitive source values into a public checklist or caption.",
+          "Separate three destinations: private original, editorial working copy and publication-ready export. A publisher who needs the export should not automatically receive the source folder. If an evidentiary original is required for a separate review, arrange that deliberately under your established procedure.",
+          "In the workplace scenario, the editor labels the masked file as a publication derivative and records that the badge and location fields were removed. That note explains the edit without restating the source's name or the exact coordinates. Image verification and source verification remain different editorial tasks."
+        ]
+      },
+      {
+        "heading": "What should the metadata review include?",
+        "paragraphs": [
+          "Look beyond a single GPS result. [Apple's photo-information documentation](https://support.apple.com/guide/iphone/see-photo-and-video-information-iph0edb9c18f/ios) illustrates saved capture time, device and location information. The [photo-metadata overview](/guides/what-photo-metadata-can-reveal/) explains how these fields differ from the visible photograph.",
+          "Publishing records deserve attention too. The [IPTC Photo Metadata Standard](https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata) defines creator contact information, descriptions, people shown, location created, location shown and rights-related fields. Review which of those should accompany the public derivative, and which belong only in private editorial records.",
+          "Use the [EXIF, XMP and IPTC comparison](/guides/exif-vs-xmp-vs-iptc/) when a workflow carries several field families. A file with no EXIF GPS may still have a location or identity in a description. Keep the publication's authorised credit and rights information in its approved publishing workflow instead of assuming that every useful editorial field must be deleted everywhere.",
+          "For the workplace photograph, a cleaned coordinate field would not settle a caption naming the department. Review both the exported file and the CMS caption before the handoff is accepted."
+        ]
+      },
+      {
+        "heading": "What remains identifiable in the visible photograph?",
+        "paragraphs": [
+          "Check badges, faces, screens, reflections, tattoos, documents and distinctive equipment. Also consider a window view, room layout, uniform or notice that someone with local knowledge might recognise. Review the caption, alt text and nearby story text together with the image.",
+          "In the fictional workplace image, an opaque mask hides the badge but a reflected monitor still shows the source's account name. The editor crops the reflection, masks the remaining identifier and asks whether the room alone reveals who supplied the image. If it does, a different illustration may be the better editorial choice.",
+          "An already-public copy creates a further connection. Read [why metadata removal does not stop reverse image search](/guides/metadata-removal-reverse-image-search/) before republishing a recognisable source photograph under a new context. Do not upload an unpublished source image to a search service merely to obtain a reassuring no-match result."
+        ]
+      },
+      {
+        "heading": "Which Apple export route produces the intended copy?",
+        "paragraphs": [
+          "On a Mac, [Apple distinguishes an edited photo export from an unmodified-original export](https://support.apple.com/guide/photos/export-photos-videos-slideshows-and-memories-pht6e157c5f/mac):",
+          "1. In Photos, select the intended edited photograph.\n2. Choose File > Export > Export Photos, then choose the required image type and output settings.\n3. Export into a separate publication folder and inspect the resulting file.\n4. Reserve Export Unmodified Original for a deliberate original-file handoff, not for sending the masked publication image.",
+          "Apple also documents an optional Export IPTC as XMP sidecar in the original-export workflow. Check the folder for extra files before handing it over. A sidecar is a separate metadata-bearing artifact, not something an image-only scan automatically clears.",
+          "For an iPhone transfer, [Apple describes All Photos Data as sending the original, edit history and metadata](https://support.apple.com/guide/iphone/share-photos-and-videos-iphf28f17237/ios). When that option is offered, leave it off for a publication-copy handoff. Select the reviewed export deliberately; a sharing switch does not replace checking the file."
+        ]
+      },
+      {
+        "heading": "What evidence should accompany the publication handoff?",
+        "paragraphs": [
+          "Use the [local metadata cleaner](/remove-photo-metadata/) on a supported JPEG, PNG or static WebP, up to 10 MB, after making the required visual edits. A HEIC original needs a supported still export first. Open the downloaded result for an independent check rather than relying on a success label from an earlier copy.",
+          "Ask the second reviewer to check the visible image, supported metadata findings, filename, caption, credit and destination. Agree on the exact file being accepted. If a later resize, watermark or publishing export changes it, check that new file before release.",
+          "In the workplace scenario, the final handoff contains only the reviewed publication image and the authorised caption, while the original remains restricted. Finish by opening that exact image in the [clean-copy verifier](/verify-clean-photo/) and recording the reviewer and result in your private editorial workflow.",
+          "Sources checked November 2026."
+        ]
+      }
+    ]
   },
   {
     slug: 'browser-local-image-processing',
@@ -981,7 +1270,7 @@ export const guides: GuidePage[] = [
     toolLabel: 'Check a screenshot locally',
     sections: [
       { heading: 'Yes, a screenshot can have metadata', paragraphs: ['A screenshot is an image file, and image files can contain metadata. The exact fields depend on the operating system, capture tool, editor, export format, and any service that handled the file afterward.', 'Many screenshots contain fewer camera-specific fields than photos because there is no lens, exposure, or camera GPS capture. They can still carry dimensions, color information, timestamps, software fields, text chunks, profiles, or other application-added data.'] },
-      { heading: 'The visible screen is usually the bigger risk', paragraphs: ['Notifications, tabs, email addresses, usernames, account balances, document titles, QR codes, recovery codes, and background windows are stored in the pixels. Removing EXIF cannot remove those details.', 'Review the entire frame at full size. Crop unnecessary areas and use permanent solid masks for secrets before flattening the result into new pixels.'] },
+      { heading: 'The visible screen is usually the bigger risk', paragraphs: ['Notifications, tabs, email addresses, usernames, account balances, document titles, QR codes, recovery codes, and background windows are stored in the pixels. Removing EXIF cannot remove those details.', 'Review the entire frame at full size. Crop unnecessary areas and use permanent solid masks for secrets before flattening the result into new pixels. Follow [how to redact a screenshot safely](/guides/redact-a-screenshot-safely/) for the full workflow.'] },
       { heading: 'Different copies can produce different answers', paragraphs: ['The original screenshot, an edited copy, a pasted version, and a file downloaded from a messaging platform may not have the same metadata. Some transformations remove fields and others add software or time information.', 'Inspect the exact copy you intend to send. If you redact it, inspect the exported redacted copy again rather than relying on the source-file result.'] },
       { heading: 'Use a two-part screenshot check', paragraphs: ['First, run a metadata scan for supported hidden structures. Second, inspect the visible image for secrets and contextual clues. Neither review replaces the other.'], checklist: ['Open the final screenshot file', 'Check hidden metadata', 'Review every visible edge at full size', 'Use solid masks for secrets', 'Flatten and rescan the shared copy'] },
     ],
