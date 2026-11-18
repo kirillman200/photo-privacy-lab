@@ -23,7 +23,7 @@ describe('guide reading time', () => {
     expect(readingTime(item)).toBe('2 min');
   });
   it('distinguishes a short audited guide from an expanded guide', () => {
-    expect(readingTime(guides.find((item) => item.slug === 'photo-sharing-checklist-for-parents')!)).toBe('1 min');
+    expect(readingTime(guides.find((item) => item.slug === 'exif-vs-xmp-vs-iptc')!)).toBe('1 min');
     expect(Number.parseInt(readingTime(guides.find((item) => item.slug === 'metadata-removal-reverse-image-search')!))).toBeGreaterThan(1);
   });
 });
